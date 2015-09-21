@@ -5,8 +5,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user_authentication")
 public class UserAuthentication extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -20,5 +22,20 @@ public class UserAuthentication extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }

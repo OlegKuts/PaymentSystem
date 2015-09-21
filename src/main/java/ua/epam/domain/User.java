@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "user_authorization")
 public class User extends BaseEntity {
 	private String username;
 	private String password;
