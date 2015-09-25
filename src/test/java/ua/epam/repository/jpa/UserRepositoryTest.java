@@ -17,7 +17,7 @@ public class UserRepositoryTest extends RepositoryTestTemplate {
 	UserRepository userRepository;
 
 	@Test
-	public void insertUserTest() {
+	public void insertAndFindUserTest() {
 		User user = new User();
 		String username = "Oleg";
 		user.setUsername(username);

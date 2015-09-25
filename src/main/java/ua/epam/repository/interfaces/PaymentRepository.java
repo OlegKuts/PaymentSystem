@@ -16,7 +16,11 @@ public interface PaymentRepository {
 
 	List<Payment> findAll();
 
-	Long getAmountForAccount(Long accountId);
+	Long getAmountForPayerAccount(Long accountId);
 
-	List<Payment> findAllForAccount(Long accountId);
+	List<Payment> findAllForPayerAccount(Long accountId);
+
+	Long getAmountForReceiverAccount(Long accountId);
+
+	List<Payment> findAllForReceiverAccount(Long accountId);
 }

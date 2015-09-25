@@ -15,9 +15,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "payment")
 @NamedQueries({
-	@NamedQuery(name="Payment.findAll", query="SELECT p FROM Payment p"),
-	@NamedQuery(name="Payment.getAmountForAccount", query="SELECT p FROM Payment p WHERE p.payer_account_id.id = :accountId")
-})
+		@NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
+		@NamedQuery(name = "Payment.findAllForPayerAccount", query = "SELECT p FROM Payment p WHERE p.payerAccount.id = :accountId"),
+		@NamedQuery(name = "Payment.findAllForReceiverAccount", query = "SELECT p FROM Payment p WHERE p.receiverAccount.id = :accountId"),
+		@NamedQuery(name = "Payment.getAmountForPayerAccount", query = "SELECT count(p) FROM Payment p WHERE p.payerAccount.id = :accountId"),
+		@NamedQuery(name = "Payment.getAmountForReceiverAccount", query = "SELECT count(p) FROM Payment p WHERE p.receiverAccount.id = :accountId") })
 public class Payment extends BaseEntity {
 	private Double amount;
 	@Column(name = "payment_date")
@@ -67,6 +69,38 @@ public class Payment extends BaseEntity {
 
 	public void setReceiverAccount(Account receiverAccount) {
 		this.receiverAccount = receiverAccount;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
+		result = prime * result
+				+ ((paymentDate == null) ? 0 : paymentDate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Payment other = (Payment) obj;
+		if (amount == null) {
+			if (other.amount != null)
+				return false;
+		} else if (!amount.equals(other.amount))
+			return false;
+		if (paymentDate == null) {
+			if (other.paymentDate != null)
+				return false;
+		} else if (!paymentDate.equals(other.paymentDate))
+			return false;
+		return true;
 	}
 
 }

@@ -1,5 +1,6 @@
 package ua.epam.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,11 +17,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @NamedQueries({
-	@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a"),
-	@NamedQuery(name="Account.findAllActive", query="SELECT a FROM Account a WHERE a.active = :active")
-})
+		@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
+		@NamedQuery(name = "Account.findAllActive", query = "SELECT a FROM Account a WHERE a.active = :active") })
 @Entity
-@Table(name="account")
+@Table(name = "account")
 public class Account extends BaseEntity {
 	private Double balance;
 	@Column(name = "is_active")
@@ -31,12 +31,12 @@ public class Account extends BaseEntity {
 	private User user;
 
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<CreditCard> creditCards = new HashSet<CreditCard>();
+	private Set<CreditCard> creditCards;
 
-	@OneToMany(mappedBy = "payerAccount", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "payerAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Payment> payers;
 
-	@OneToMany(mappedBy = "receiverAccount", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "receiverAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Payment> receivers;
 
 	public Account() {
@@ -67,6 +67,9 @@ public class Account extends BaseEntity {
 	}
 
 	public Set<CreditCard> getCreditCards() {
+		if (creditCards == null) {
+			creditCards = new HashSet<CreditCard>();
+		}
 		return creditCards;
 	}
 
@@ -75,6 +78,9 @@ public class Account extends BaseEntity {
 	}
 
 	public List<Payment> getPayers() {
+		if (payers == null) {
+			payers = new ArrayList<Payment>();
+		}
 		return payers;
 	}
 
@@ -83,6 +89,9 @@ public class Account extends BaseEntity {
 	}
 
 	public List<Payment> getReceivers() {
+		if (receivers == null) {
+			receivers = new ArrayList<Payment>();
+		}
 		return receivers;
 	}
 
