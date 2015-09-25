@@ -50,7 +50,7 @@ public class JpaUserRepository implements UserRepository {
 	public boolean isUsernameUniq(String username) {
 		TypedQuery<User> query = em.createNamedQuery("User.findByUsername", User.class).setParameter("username", username);
 		List<User> users = query.getResultList();
-		return users.isEmpty() || users == null;
+		return users.isEmpty();
 	}
 
 }

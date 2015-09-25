@@ -33,6 +33,23 @@ public class UserRepositoryTest extends RepositoryTestTemplate {
 	}
 
 	@Test
+	public void updatTest() {
+		User user = new User();
+		String username = "Oleg";
+		String username2 = "Pavlo";
+		user.setUsername(username);
+		
+		userRepository.save(user);
+		User userToUpdate = userRepository.find(user.getId());
+		userToUpdate.setUsername(username2);
+		userRepository.update(userToUpdate);
+		User updatedUser = userRepository.find(user.getId())	;
+		
+		assertEquals(updatedUser.getUsername(), username2);
+		assertNotEquals(updatedUser.getUsername(), username);
+	}
+
+	@Test
 	public void findAllTest() {
 		User user = new User();
 		User user2 = new User();
@@ -40,51 +57,45 @@ public class UserRepositoryTest extends RepositoryTestTemplate {
 		userRepository.save(user);
 		userRepository.save(user2);
 		userRepository.save(user3);
-		
-		List<User> users =	 userRepository.findAll();
-		
+
+		List<User> users = userRepository.findAll();
+
 		assertNotNull(users);
 		assertEquals(3, users.size());
 	}
-	
+
 	@Test
-	public void findByUsernameTest(){
+	public void findByUsernameTest() {
 		User user = new User();
 		User user2 = new User();
 		String username = "Oleg";
 		String username2 = "Taras";
 		user.setUsername(username);
 		user2.setUsername(username2);
-		
+
 		userRepository.save(user);
 		userRepository.save(user2);
-		
+
 		User userdb = userRepository.findByUsername(username);
 		User userdb2 = userRepository.findByUsername(username2);
-		
+
 		assertNotNull(userdb);
 		assertEquals(user, userdb);
 		assertEquals(user2, userdb2);
 	}
-	
-	public void isUsernameUniqTest(){
+
+	@Test
+	public void isUsernameUniqTest() {
 		User user = new User();
-		User user2 = new User();
-		String username = "Oleg";
-		String username2 = "Taras";
-		String uniqUsername = "Uniq";
-		
+		String username = "NotUniq1";
+		String uniqUsername = "Oleg";
+
 		user.setUsername(username);
-		user2.setUsername(username2);
-		
+
 		userRepository.save(user);
-		userRepository.save(user2);
-		
-		System.out.println(userRepository.isUsernameUniq(username2));
-		System.out.println(userRepository.isUsernameUniq(uniqUsername));
-		
-		assertTrue(userRepository.isUsernameUniq(username2));
-		assertFalse(userRepository.isUsernameUniq(username2));
+
+		assertFalse(userRepository.isUsernameUniq(username));
+		assertTrue(userRepository.isUsernameUniq(uniqUsername));
 	}
 
 }

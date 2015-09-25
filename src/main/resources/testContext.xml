@@ -9,7 +9,7 @@
 	<context:component-scan base-package="ua.epam.repository" />
 
 	<!-- Database -->
-	<jdbc:embedded-database id="datasource" type="H2"></jdbc:embedded-database>
+	<jdbc:embedded-database id="datasource" type="HSQL"></jdbc:embedded-database>
 
 	<!-- Entity Manager -->
 	<bean id="entityManagerFactory"
