@@ -6,6 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Email;
+
 @Entity
 @Table(name="user_information")
 public class UserInformation extends BaseEntity {
@@ -13,6 +15,7 @@ public class UserInformation extends BaseEntity {
 	private String firstName;
 	@Column(name = "lastname")
 	private String lastName;
+	@Email
 	private String email;
 
 	@OneToOne
@@ -21,6 +24,15 @@ public class UserInformation extends BaseEntity {
 
 	public UserInformation() {
 
+	}
+
+	public UserInformation(String firstName, String lastName, String email,
+			User user) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.user = user;
 	}
 
 	public String getFirstName() {

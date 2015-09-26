@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_authentication")
+@Table(name = "user_authentication")
 public class UserAuthentication extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -20,6 +20,10 @@ public class UserAuthentication extends BaseEntity {
 	public UserAuthentication() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public UserAuthentication(Role role) {
+		this.role = role;
 	}
 
 	public Role getRole() {

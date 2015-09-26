@@ -1,5 +1,6 @@
 package ua.epam.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -66,6 +67,9 @@ public class User extends BaseEntity {
 	}
 
 	public Set<UserAuthentication> getRoles() {
+		if(roles == null){
+			roles = new HashSet<UserAuthentication>();
+		}
 		return roles;
 	}
 

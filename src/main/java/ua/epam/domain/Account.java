@@ -42,6 +42,13 @@ public class Account extends BaseEntity {
 	public Account() {
 	}
 
+	public Account(Double balance, Boolean active, User user) {
+		super();
+		this.balance = balance;
+		this.active = active;
+		this.user = user;
+	}
+
 	public Double getBalance() {
 		return balance;
 	}
