@@ -9,7 +9,6 @@
 	<!-- for Spring Data -->
 	<!-- <jpa:repositories base-package="ua.epam.repository" /> -->
 	<context:component-scan base-package="ua.epam.repository" />
-	<context:component-scan base-package="ua.epam.main" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="propertyConfigurer"
