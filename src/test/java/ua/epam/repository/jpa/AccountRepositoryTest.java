@@ -62,27 +62,29 @@ public class AccountRepositoryTest extends RepositoryTestTemplate {
 	}
 
 	@Test
-	public void findAllTestActive() {
+	public void findAllActiveTest() {
 		Account account = new Account();
 		Account account2 = new Account();
 		Account account3 = new Account();
 		account.setActive(true);
 		account2.setActive(true);
 		account3.setActive(false);
-		
+
 		accountRepository.save(account);
 		accountRepository.save(account2);
 		accountRepository.save(account3);
-		
+
 		List<Account> activeAccounts = accountRepository.findAllIfActive(true);
-		List<Account> dissactiveAccounts = accountRepository.findAllIfActive(false); 
-		
+		List<Account> dissactiveAccounts = accountRepository
+				.findAllIfActive(false);
+
 		assertNotNull(activeAccounts);
 		assertNotNull(dissactiveAccounts);
 		assertEquals(2, activeAccounts.size());
 		assertEquals(1, dissactiveAccounts.size());
 		assertTrue(activeAccounts.get(1).getActive());
 		assertFalse(dissactiveAccounts.get(0).getActive());
-		
+
 	}
+
 }

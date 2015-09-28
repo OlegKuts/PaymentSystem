@@ -1,4 +1,4 @@
-package ua.epam.service;
+package ua.epam.services;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import ua.epam.domain.UserAuthentication;
 import ua.epam.domain.UserInformation;
 import ua.epam.form.UserForm;
 import ua.epam.repository.interfaces.UserRepository;
-import ua.epam.service.interfaces.UserService;
+import ua.epam.services.interfaces.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

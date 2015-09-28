@@ -1,4 +1,4 @@
-package ua.epam.service.interfaces;
+package ua.epam.services.interfaces;
 
 import java.util.List;
 

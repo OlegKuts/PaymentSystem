@@ -1,4 +1,4 @@
-package ua.epam.service;
+package ua.epam.services;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import ua.epam.domain.Account;
 import ua.epam.repository.interfaces.AccountRepository;
-import ua.epam.service.exceptions.AccountNotFoundException;
-import ua.epam.service.interfaces.AccountService;
+import ua.epam.services.exceptions.AccountNotFoundException;
+import ua.epam.services.interfaces.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {

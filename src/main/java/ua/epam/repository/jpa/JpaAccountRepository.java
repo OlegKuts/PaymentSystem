@@ -37,13 +37,16 @@ public class JpaAccountRepository implements AccountRepository {
 
 	@Override
 	public List<Account> findAll() {
-		TypedQuery<Account> query = em.createNamedQuery("Account.findAll",Account.class);
+		TypedQuery<Account> query = em.createNamedQuery("Account.findAll",
+				Account.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Account> findAllIfActive(boolean active) {
-		TypedQuery<Account> query = em.createNamedQuery("Account.findAllActive",Account.class).setParameter("active", active);
+		TypedQuery<Account> query = em.createNamedQuery(
+				"Account.findAllActive", Account.class).setParameter("active",
+				active);
 		return query.getResultList();
 	}
 
