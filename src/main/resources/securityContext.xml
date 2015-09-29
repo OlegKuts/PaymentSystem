@@ -8,16 +8,16 @@
 		<intercept-url pattern="/users**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/users/**" access="hasRole('ROLE_ADMIN')" />
 		<form-login login-page="/login.html" />
-		<logout logout-url="/logout" logout-success-url="/index.html"/>
+		<logout logout-url="/logout" logout-success-url="/index.html" />
 		<csrf disabled="true" />
 	</http>
 
 	<authentication-manager>
 		<authentication-provider>
-			<user-service>
-				<user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="bob" authorities="ROLE_USER" />
-			</user-service>
+			<password-encoder hash="bcrypt" />
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select username,password,enabled from user_authentication where username=?"
+				authorities-by-username-query="select u1.username, u2.role from user_authentication u1, user_authorization u2 where u1.id = u2.user_id and u1.username =?" />
 		</authentication-provider>
 	</authentication-manager>
 </beans:beans>

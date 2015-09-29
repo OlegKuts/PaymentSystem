@@ -13,14 +13,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_authorization")
+@Table(name = "user_authentication")
 @NamedQueries({
 		@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
 		@NamedQuery(name = "User.findByUsername", query = "SELECT  u FROM User u WHERE u.username = :username") })
 public class User extends BaseEntity {
 	private String username;
 	private String password;
-
+	private Boolean enabled;
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private UserInformation userInformation;
 
@@ -28,7 +28,7 @@ public class User extends BaseEntity {
 	private Account account;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<UserAuthentication> roles;
+	private Set<UserAuthorization> roles;
 
 	public User() {
 		super();
@@ -50,6 +50,14 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public UserInformation getUserInformation() {
 		return userInformation;
 	}
@@ -66,14 +74,14 @@ public class User extends BaseEntity {
 		this.account = account;
 	}
 
-	public Set<UserAuthentication> getRoles() {
-		if(roles == null){
-			roles = new HashSet<UserAuthentication>();
+	public Set<UserAuthorization> getRoles() {
+		if (roles == null) {
+			roles = new HashSet<UserAuthorization>();
 		}
 		return roles;
 	}
 
-	public void setRoles(Set<UserAuthentication> roles) {
+	public void setRoles(Set<UserAuthorization> roles) {
 		this.roles = roles;
 	}
 
@@ -114,7 +122,5 @@ public class User extends BaseEntity {
 			return false;
 		return true;
 	}
-	
-	
 
 }
