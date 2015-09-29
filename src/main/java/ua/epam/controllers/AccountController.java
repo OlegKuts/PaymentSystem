@@ -29,8 +29,6 @@ public class AccountController {
 			Model model) {
 		User user = userRepository.find(userid);
 		Account account = user.getAccount();
-		// List<Payment> list =
-		// paymentRepository.findAllForPayerAccount(account.getId());
 		List<Payment> list = account.getPayers();
 		model.addAttribute("user", user);
 		model.addAttribute(account);

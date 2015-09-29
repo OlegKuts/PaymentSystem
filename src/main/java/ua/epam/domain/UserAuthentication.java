@@ -22,8 +22,9 @@ public class UserAuthentication extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserAuthentication(Role role) {
+	public UserAuthentication(Role role, User user) {
 		this.role = role;
+		this.user = user;
 	}
 
 	public Role getRole() {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="common" template="/WEB-INF/layout/classic.jsp">
+		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
+	</definition>
+
+	<definition name="index" extends="common">
+		<put-attribute name="title" value="Payment Sysytem" />
+		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+		<put-attribute name="current" value="index" />
+	</definition>
+
+	<definition name="users" extends="common">
+		<put-attribute name="title" value="Payment Sysytem" />
+		<put-attribute name="body" value="/WEB-INF/jsp/users.jsp" />
+		<put-attribute name="current" value="users" />
+	</definition>
+
+	<definition name="userprofile" extends="common">
+		<put-attribute name="title" value="Payment Sysytem" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user-profile.jsp" />
+		<put-attribute name="current" value="users" />
+	</definition>
+
+	<definition name="user-register" extends="common">
+		<put-attribute name="title" value="Payment Sysytem" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user-register.jsp" />
+		<put-attribute name="current" value="register" />
+	</definition>
+
+	<definition name="login" extends="common">
+		<put-attribute name="title" value="Payment Sysytem" />
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+		<put-attribute name="current" value="login" />
+	</definition>
+</tiles-definitions>
