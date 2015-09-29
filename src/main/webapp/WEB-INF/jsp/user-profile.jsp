@@ -1,37 +1,62 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ include file="../layout/taglib.jsp"%>
+<div class="col-sm-4">
+	<table class="table">
+		<tr>
+			<td>User:</td>
+			<td>${user.userInformation.firstName}
+				${user.userInformation.lastName}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>AccountID:</td>
+			<td>${user.account.id}</td>
+			<td><c:if test="${user.account.active eq true }">
+					<a
+						href="<spring:url value="/users/block/${user.account.id}.html" />"
+						class="btn btn-danger btn-sm triggerRemove"> block account </a>
+				</c:if> <c:if test="${user.account.active eq false }">
+					<p class="btn-danger">Account is blocked</p>
+				</c:if></td>
+		</tr>
+		<tr>
+			<td>Balance:</td>
+			<td>${user.account.balance}</td>
+			<td><c:if test="${user.account.active eq true }">
+					<a
+						href="<spring:url value="/users/block/${user.account.id}.html" />"
+						class="btn btn-info btn-sm triggerRemove"> add funds </a>
+				</c:if> <c:if test="${user.account.active eq false }">
+					<p class="btn-danger">Account is blocked</p>
+				</c:if></td>
+		</tr>
+		<tr>
+			<td><c:if test="${user.account.active eq true }">
+				<a
+					href="<spring:url value="/users/block/${user.account.id}.html" />"
+					class="btn btn-info btn-sm triggerRemove"> make a payment </a>
+			</c:if></td>
+		</tr>
+	</table>
+</div>
 
-	<p>User: ${user.userInformation.firstName}
-		${user.userInformation.lastName}</p>
 
-	<p>Account ID: ${account.id}</p>
-	<p>Balance: ${account.balance}</p>
-	<div>
-	<p>User's payments</p>
-		<table border="1px">
-			<thead>
-				<th>Amount</th>
-				<th>Date</th>
-				<th>Receiver Account</th>
-			</thead>
-			<tbody>
-				<c:forEach items="${list}" var="payment">
-					<tr>
-						<td><c:out value="${payment.amount}" /></td>
-						<td><c:out value="${payment.paymentDate}" /></td>
-						<td align="center"><c:out
-								value="${payment.receiverAccount.id}" /></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-</body>
-</html>
+
+<table class="table table-bordered table-hover table-striped">
+	<caption>User's payments</caption>
+	<thead>
+		<th>Amount</th>
+		<th>Date</th>
+		<th>Receiver Account</th>
+	</thead>
+	<tbody>
+		<c:forEach items="${payers}" var="payment">
+			<tr>
+				<td><c:out value="${payment.amount}" /></td>
+				<td><c:out value="${payment.paymentDate}" /></td>
+				<td align="center"><c:out value="${payment.receiverAccount.id}" /></td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
+
+<br />

@@ -12,4 +12,6 @@ public interface AccountService {
 	void deactiveAccount(Long accountId);
 	
 	List<Account> getAll();
+
+	void update(Account account);
 }

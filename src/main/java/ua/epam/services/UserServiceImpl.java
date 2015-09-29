@@ -24,12 +24,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void registerUser(UserForm userForm) {
 		User user = new User();
-		String encodedPassword = encoder.encode(userForm.getUser().getPassword());
+		String encodedPassword = encoder.encode(userForm.getUser()
+				.getPassword());
 		user.setEnabled(Boolean.TRUE);
 		user.setUsername(userForm.getUser().getUsername());
 		user.setPassword(encodedPassword);
 		user.getRoles().add(new UserAuthorization(Role.ROLE_USER, user));
-		user.getRoles().add(new UserAuthorization(Role.ROLE_ADMIN, user));// for
+	//	user.getRoles().add(new UserAuthorization(Role.ROLE_ADMIN, user));// for
 																			// testing
 																			// purposes.;
 		user.setUserInformation(new UserInformation(userForm
@@ -48,5 +49,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
+	}
+
+	@Override
+	public User find(Long userId) {
+		return userRepository.find(userId);
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
 	}
 }

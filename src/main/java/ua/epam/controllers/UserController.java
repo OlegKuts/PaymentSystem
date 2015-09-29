@@ -25,7 +25,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/users")
-	public String index(Model model) {
+	public String showUsers(Model model) {
 		List<User> users = userService.getAllUsers();
 		model.addAttribute("users", users);
 		return "users";
@@ -39,6 +39,6 @@ public class UserController {
 	@RequestMapping(value = "/register", method=RequestMethod.POST  )
 	public String doRegister(@ModelAttribute("userform") UserForm userForm ) {
 		userService.registerUser(userForm);
-		return "index";
+		return "redirect:/index.html?successful=true";
 	}
 }
