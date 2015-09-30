@@ -16,5 +16,6 @@ public interface CreditCardRepository {
 	boolean isCardNumberUniq(String cardNumber);
 	
 	Long getAmountForAccount(Long accountId);
-
+	
+	List<CreditCard> findAllForAccount(Long accountId);
 }

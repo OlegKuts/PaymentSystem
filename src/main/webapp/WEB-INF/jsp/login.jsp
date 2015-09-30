@@ -1,10 +1,6 @@
 <%@ include file="../layout/taglib.jsp"%>
 <style>
-body {
-	padding-top: 40px;
-	padding-bottom: 40px;
-	background-color: #eee;
-}
+
 
 .form-signin {
 	max-width: 330px;

@@ -75,10 +75,10 @@
 
 		<tiles:insertAttribute name="body" />
 
-		<br /> <br />
-		<center>
-			<tiles:insertAttribute name="footer" />
-		</center>
+
+		<tiles:insertAttribute name="footer" />
+
+
 	</div>
 </body>
 </html>

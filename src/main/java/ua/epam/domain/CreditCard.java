@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "CreditCard.findAll", query = "SELECT c FROM CreditCard c "),
 		@NamedQuery(name = "CreditCard.findByCardNumber", query = "SELECT c FROM CreditCard c WHERE c.cardNumber = :cardNumber"),
-		@NamedQuery(name="CreditCard.getAmountForAccount", query="SELECT count(c) FROM CreditCard c WHERE c.account.id = :accountId")
+		@NamedQuery(name="CreditCard.getAmountForAccount", query="SELECT count(c) FROM CreditCard c WHERE c.account.id = :accountId"),
+		@NamedQuery(name = "CreditCard.findAllForAccount", query = "SELECT c FROM CreditCard c WHERE c.account.id = :accountId")
 })
 public class CreditCard extends BaseEntity {
 	private String cvv2;

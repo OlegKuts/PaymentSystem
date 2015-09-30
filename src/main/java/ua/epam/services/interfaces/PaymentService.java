@@ -7,5 +7,5 @@ import ua.epam.domain.Payment;
 public interface PaymentService {
 	Payment getPaymnetById(Long paymentId);
 	
-	List<Payment> getAllPaymentsForUser(Long userId);
+	List<Payment> getAllPaymentsForPayerAccount(Long accountId);
 }

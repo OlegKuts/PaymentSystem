@@ -57,4 +57,11 @@ public class JpaCreditCardRepository implements CreditCardRepository {
 		return query.getSingleResult();
 	}
 
+	@Override
+	public List<CreditCard> findAllForAccount(Long accountId) {
+		TypedQuery<CreditCard> query = em.createNamedQuery(
+				"CreditCard.findAllForAccount", CreditCard.class).setParameter("accountId", accountId);
+		return query.getResultList();
+	}
+
 }

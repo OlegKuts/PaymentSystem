@@ -26,8 +26,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<Payment> getAllPaymentsForUser(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Payment> getAllPaymentsForPayerAccount(Long accountId) {
+		return paymentRepository.findAllForPayerAccount(accountId);
 	}
 }

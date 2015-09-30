@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		user.setUsername(userForm.getUser().getUsername());
 		user.setPassword(encodedPassword);
 		user.getRoles().add(new UserAuthorization(Role.ROLE_USER, user));
-	//	user.getRoles().add(new UserAuthorization(Role.ROLE_ADMIN, user));// for
+		//user.getRoles().add(new UserAuthorization(Role.ROLE_ADMIN, user));// for
 																			// testing
 																			// purposes.;
 		user.setUserInformation(new UserInformation(userForm
