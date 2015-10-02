@@ -12,7 +12,7 @@
 	<tbody>
 		<c:forEach items="${users}" var="user">
 			<tr>
-				<td><a href="<spring:url value="/users/${user.id}.html" />">
+				<td><a href="<spring:url value="/admin/users/${user.id}.html" />">
 						<c:out value="${user.username}" />
 				</a></td>
 				<td>
@@ -20,11 +20,11 @@
 				</a></td>
 				<td><c:if test="${user.account.active eq true }">
 						<a
-							href="<spring:url value="/users/block/${user.account.id}.html" />"
+							href="<spring:url value="/admin/users/block/${user.account.id}.html" />"
 							class="btn btn-danger triggerRemove"> Block Account </a>
 					</c:if> <c:if test="${user.account.active eq false }">
 						<a
-							href="<spring:url value="/users/active/${user.account.id}.html" />"
+							href="<spring:url value="/admin/users/active/${user.account.id}.html" />"
 							class="btn btn-success triggerRemove"> Activate Account</a>
 					</c:if></td>
 			</tr>

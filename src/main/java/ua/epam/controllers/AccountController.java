@@ -31,23 +31,19 @@ public class AccountController {
 	@Autowired
 	CreditCardService creditCardService;
 
-	@ModelAttribute("card")
-	public CreditCard constructCreditCard() {
-		return new CreditCard();
-	}
 
-	@RequestMapping(value = "/users/block/{accountid}")
-	public String blockAccountByAdmin(
-			@PathVariable("accountid") Long accountId, Model model) {
-		accountService.deactiveAccount(accountId);
-		return "redirect:/users.html";
-	}
 
-	@RequestMapping(value = "/users/active/{accountid}")
-	public String activeAccountByAdmin(
-			@PathVariable("accountid") Long accountId, Model model) {
-		accountService.activeAccount(accountId);
-		return "redirect:/users.html";
+	@RequestMapping("/account")
+	public String showUserAccountByUserName(Principal principal, Model model) {
+		String username = principal.getName();
+		User user = userService.findByUsername(username);
+		Account account = user.getAccount();
+		List<Payment> payers = paymentService
+				.getAllPaymentsForPayerAccount(account.getId());
+		model.addAttribute("user", user);
+		model.addAttribute("account", account);
+		model.addAttribute("payers", payers);
+		return "userprofile";
 	}
 
 	@RequestMapping(value = "/account/block/{accountid}")

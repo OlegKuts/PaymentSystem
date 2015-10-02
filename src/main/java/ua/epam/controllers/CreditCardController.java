@@ -31,38 +31,7 @@ public class CreditCardController {
 	@Autowired
 	PaymentService paymentService;
 
-	@ModelAttribute("creditCard")
-	public CreditCard construct() {
-		return new CreditCard();
-	}
-
-	@RequestMapping("/users/{userid}")
-	public String showUserAccountByID(@PathVariable("userid") Long userId,
-			Model model) {
-		User user = userService.find(userId);
-		Account account = user.getAccount();
-		List<Payment> payers = paymentService
-				.getAllPaymentsForPayerAccount(account.getId());
-		model.addAttribute(user);
-		model.addAttribute(account);
-		model.addAttribute("payers", payers);
-		return "userprofile";
-	}
-
-	@RequestMapping("/account")
-	public String showUserAccountByUserName(Principal principal, Model model) {
-		String username = principal.getName();
-		User user = userService.findByUsername(username);
-		Account account = user.getAccount();
-		List<Payment> payers = paymentService
-				.getAllPaymentsForPayerAccount(account.getId());
-		model.addAttribute("user", user);
-		model.addAttribute("account", account);
-		model.addAttribute("payers", payers);
-		return "userprofile";
-	}
-
-	@RequestMapping(value = "/account", method = RequestMethod.POST)
+	@RequestMapping(value = "/creditcard/addnew", method = RequestMethod.POST)
 	public String doRegister(
 			@ModelAttribute("creditCard") CreditCard creditCard,
 			Principal principal) {

@@ -20,7 +20,6 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
 		@NamedQuery(name = "User.findByUsername", query = "SELECT  u FROM User u WHERE u.username = :username") })
 public class User extends BaseEntity {
-
 	private String username;
 	private String password;
 	private Boolean enabled;

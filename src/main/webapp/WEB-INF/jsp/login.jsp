@@ -1,7 +1,8 @@
 <%@ include file="../layout/taglib.jsp"%>
+<c:if test="${param.successful eq true }">
+	<div class="alert alert-success">Registration successful</div>
+</c:if>
 <style>
-
-
 .form-signin {
 	max-width: 330px;
 	padding: 15px;

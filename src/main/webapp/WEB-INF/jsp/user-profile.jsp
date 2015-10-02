@@ -114,7 +114,7 @@
 	</div>
 
 
-	<form:form commandName="creditCard" cssClass="form-horizontal">
+	<form:form action="creditcard/addnew.html" cssClass="form-horizontal" modelAttribute="newCard">
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
