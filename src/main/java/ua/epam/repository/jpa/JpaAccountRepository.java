@@ -50,4 +50,10 @@ public class JpaAccountRepository implements AccountRepository {
 		return query.getResultList();
 	}
 
+	@Override
+	public Account findByUsername(String username) {
+		TypedQuery<Account> query = em.createNamedQuery("Account.findByUsername", Account.class).setParameter("username", username);
+		return query.getSingleResult();
+	}
+
 }

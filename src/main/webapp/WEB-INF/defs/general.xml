@@ -44,4 +44,10 @@
 		<put-attribute name="current" value="users" />
 	</definition>
 
+	<definition name="makepayment" extends="common">
+		<put-attribute name="title" value="Payment Sysytem" />
+		<put-attribute name="body" value="/WEB-INF/jsp/make-payment.jsp" />
+		<put-attribute name="current" value="users" />
+	</definition>
+
 </tiles-definitions>

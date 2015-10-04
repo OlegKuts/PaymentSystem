@@ -21,6 +21,7 @@ import ua.epam.services.interfaces.PaymentService;
 import ua.epam.services.interfaces.UserService;
 
 @Controller
+@RequestMapping("/creditcard")
 public class CreditCardController {
 	@Autowired
 	CreditCardService creditCardService;
@@ -31,9 +32,9 @@ public class CreditCardController {
 	@Autowired
 	PaymentService paymentService;
 
-	@RequestMapping(value = "/creditcard/addnew", method = RequestMethod.POST)
-	public String doRegister(
-			@ModelAttribute("creditCard") CreditCard creditCard,
+	@RequestMapping(value = "/addnew", method = RequestMethod.POST)
+	public String addNew(
+			@ModelAttribute("newCard") CreditCard creditCard,
 			Principal principal) {
 		creditCardService.registerNew(creditCard, principal.getName());
 		return "redirect:/account.html";

@@ -14,4 +14,8 @@ public interface AccountService {
 	List<Account> getAll();
 
 	void update(Account account);
+
+	Account getAccountByUsername(String name);
+
+	void refundAccount(Long cardId, Long accountId, double amountToRefund);
 }

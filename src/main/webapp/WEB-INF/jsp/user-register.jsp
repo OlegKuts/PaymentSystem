@@ -1,10 +1,12 @@
 <%@ include file="../layout/taglib.jsp"%>
 
 <form:form commandName="userform" cssClass="form-horizontal">
+	<form:errors path="*" />
 	<div class="form-group">
 		<label for="user.username" class="col-sm-2 control-label">Username:</label>
 		<div class="col-sm-10">
 			<form:input path="user.username" cssClass="form-control" />
+			<form:errors path="user.username" cssClass="error"/>
 		</div>
 	</div>
 	<div class="form-group">
@@ -14,13 +16,15 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="userInformation.firstName" class="col-sm-2 control-label">First Name:</label>
+		<label for="userInformation.firstName" class="col-sm-2 control-label">First
+			Name:</label>
 		<div class="col-sm-10">
 			<form:input path="userInformation.firstName" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="userInformation.lastName" class="col-sm-2 control-label">Last Name:</label>
+		<label for="userInformation.lastName" class="col-sm-2 control-label">Last
+			Name:</label>
 		<div class="col-sm-10">
 			<form:input path="userInformation.lastName" cssClass="form-control" />
 		</div>

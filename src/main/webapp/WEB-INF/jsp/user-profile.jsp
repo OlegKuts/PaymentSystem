@@ -80,7 +80,7 @@
 				<td><c:if test="${user.account.active eq true }">
 						<security:authorize access="! hasRole('ROLE_ADMIN')">
 							<a
-								href="<spring:url value="/account/block/${user.account.id}.html" />"
+								href="<spring:url value="/account/block" />"
 								class="btn btn-danger btn-sm triggerRemove"> block account </a>
 						</security:authorize>
 					</c:if> <c:if test="${user.account.active eq false }">
@@ -92,9 +92,11 @@
 				<td>${user.account.balance}</td>
 				<td><c:if test="${user.account.active eq true }">
 						<security:authorize access="! hasRole('ROLE_ADMIN')">
-							<a
-								href="<spring:url value="/account/refund/${user.account.id}.html" />"
+							<a href="<spring:url value="/account/refund" />"
 								class="btn btn-info btn-sm triggerRemove"> add funds </a>
+							<!-- <form  action="account/refund" method="get">
+							<input type="submit" value="add funds" class="btn btn-info btn-sm triggerRemove"/>								
+						</form> -->
 						</security:authorize>
 					</c:if> <c:if test="${user.account.active eq false }">
 						<p class="btn-danger">Account is blocked</p>
@@ -103,8 +105,7 @@
 			<tr>
 				<td colspan="3"><c:if test="${user.account.active eq true }">
 						<security:authorize access="! hasRole('ROLE_ADMIN')">
-							<a
-								href="<spring:url value="/account/refund/${user.account.id}.html" />"
+							<a href="<spring:url value="/payments/makepayment" />"
 								class="btn btn-info btn-primary triggerRemove"> make a
 								payment </a>
 						</security:authorize>
@@ -114,7 +115,8 @@
 	</div>
 
 
-	<form:form action="creditcard/addnew.html" cssClass="form-horizontal" modelAttribute="newCard">
+	<form:form action="creditcard/addnew.html" cssClass="form-horizontal"
+		modelAttribute="newCard">
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">

@@ -11,6 +11,8 @@ public interface AccountRepository {
 
 	Account find(Long id);
 	
+	Account findByUsername(String username);
+	
 	List<Account> findAll();
 	
 	List<Account> findAllIfActive(boolean active);

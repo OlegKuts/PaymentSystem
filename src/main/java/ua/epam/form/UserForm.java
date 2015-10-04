@@ -1,9 +1,12 @@
 package ua.epam.form;
 
+import javax.validation.Valid;
+
 import ua.epam.domain.User;
 import ua.epam.domain.UserInformation;
 
 public class UserForm {
+	@Valid
 	private User user;
 	private UserInformation userInformation;
 
@@ -22,5 +25,4 @@ public class UserForm {
 	public void setUserInformation(UserInformation userInformation) {
 		this.userInformation = userInformation;
 	}
-
 }

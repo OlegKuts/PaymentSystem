@@ -8,4 +8,6 @@ public interface PaymentService {
 	Payment getPaymnetById(Long paymentId);
 	
 	List<Payment> getAllPaymentsForPayerAccount(Long accountId);
+
+	void makePayment(Long payerAccountId, Long receiverAccountId, double amount);
 }

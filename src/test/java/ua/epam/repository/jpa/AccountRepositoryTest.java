@@ -8,13 +8,17 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ua.epam.domain.Account;
+import ua.epam.domain.User;
 import ua.epam.repository.interfaces.AccountRepository;
+import ua.epam.repository.interfaces.UserRepository;
 import ua.epam.repository.template.RepositoryTestTemplate;
 
 public class AccountRepositoryTest extends RepositoryTestTemplate {
 
 	@Autowired
 	AccountRepository accountRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	@Test
 	public void insertAndFindAccountTest() {
@@ -87,4 +91,18 @@ public class AccountRepositoryTest extends RepositoryTestTemplate {
 
 	}
 
+	@Test
+	public void findByUsernameTest() {
+		User user = new User();
+		String username = "user";
+		user.setUsername(username);
+		Account account = new Account();
+		account.setUser(user);
+		user.setAccount(account);
+		userRepository.save(user);
+		Account accountdb = accountRepository.findByUsername(username);
+
+		assertEquals(account, accountdb);
+		assertEquals(accountdb.getUser().getUsername(), username);
+	}
 }

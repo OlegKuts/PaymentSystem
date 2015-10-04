@@ -28,7 +28,7 @@ public class AdminController {
 	PaymentService paymentService;
 
 	@RequestMapping("/users")
-	public String showUsers(Model model) {
+	public String listUsers(Model model) {
 		List<User> users = userService.getAllUsers();
 		model.addAttribute("users", users);
 		return "users";

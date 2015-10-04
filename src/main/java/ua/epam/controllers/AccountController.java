@@ -6,21 +6,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.epam.domain.Account;
 import ua.epam.domain.CreditCard;
 import ua.epam.domain.Payment;
 import ua.epam.domain.User;
+import ua.epam.form.RefundBalanceForm;
 import ua.epam.services.interfaces.AccountService;
 import ua.epam.services.interfaces.CreditCardService;
 import ua.epam.services.interfaces.PaymentService;
 import ua.epam.services.interfaces.UserService;
 
 @Controller
+@RequestMapping("/account")
 public class AccountController {
 	@Autowired
 	AccountService accountService;
@@ -31,10 +35,8 @@ public class AccountController {
 	@Autowired
 	CreditCardService creditCardService;
 
-
-
-	@RequestMapping("/account")
-	public String showUserAccountByUserName(Principal principal, Model model) {
+	@RequestMapping("")
+	public String showUserAccount(Principal principal, Model model) {
 		String username = principal.getName();
 		User user = userService.findByUsername(username);
 		Account account = user.getAccount();
@@ -46,25 +48,26 @@ public class AccountController {
 		return "userprofile";
 	}
 
-	@RequestMapping(value = "/account/block/{accountid}")
-	public String blockAccountByUser(@PathVariable("accountid") Long accountId,
-			Model model) {
-		accountService.deactiveAccount(accountId);
-		return "redirect:/account.html";
+	@RequestMapping(value = "/block")
+	public String blockAccountByUser(	Model model, Principal principal) {
+		Account account = accountService.getAccountByUsername(principal.getName());
+		accountService.deactiveAccount(account.getId());
+		return "redirect:/account";
 	}
 
-	@RequestMapping(value = "/account/refund/{accountid}")
-	public String showRefundAccountBalance(
-			@PathVariable("accountid") Long accountId, Model model) {
-		// Account account = accountService.getAccountById(accountId);
+	@RequestMapping(value = "/refund", method = RequestMethod.GET)
+	public String showRefundAccountBalance( Model model, Principal principal) {
+		Account account = accountService.getAccountByUsername(principal.getName());
+		Long accountId = account.getId();
 		List<CreditCard> cards = creditCardService.findAllForAccount(accountId);
 		model.addAttribute("cards", cards);
+		model.addAttribute("accountId", accountId);
 		return "addfunds";
 	}
-
-	@RequestMapping(value = "/account/refund/{accountid}", method = RequestMethod.POST)
-	public String refundAccountBalance(
-			@ModelAttribute("card") CreditCard creditCard) {
-		return "addfunds";
+	
+	@RequestMapping(value = "/refund", method = RequestMethod.POST)
+	public String refundAccountBalance(@ModelAttribute("refundForm") RefundBalanceForm refundForm) {
+		accountService.refundAccount(refundForm.getCardId(),refundForm.getAccountId(),refundForm.getAmount());
+		return "redirect:/account";
 	}
 }

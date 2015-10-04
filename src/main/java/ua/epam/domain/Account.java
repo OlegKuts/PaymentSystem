@@ -19,7 +19,8 @@ import javax.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
 		@NamedQuery(name = "Account.findAllActive", query = "SELECT a FROM Account a WHERE a.active = :active"),
-		@NamedQuery(name = "Account.findAllByUserId", query = "SELECT a FROM Account a WHERE a.user.id = :userId") })
+		@NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.user.id = :userId"),
+		@NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.user.username = :username")})
 @Entity
 @Table(name = "account")
 public class Account extends BaseEntity {

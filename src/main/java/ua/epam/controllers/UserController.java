@@ -33,7 +33,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String doRegister(@ModelAttribute("userform") UserForm userForm) {
+	public String doRegister(@ModelAttribute("userform") @Valid  UserForm userForm, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()){
+			return "user-register";
+		}
 		userService.registerUser(userForm);
 		return "redirect:/login.html?successful=true";
 	}
