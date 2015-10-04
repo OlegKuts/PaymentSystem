@@ -30,6 +30,6 @@ public class PaymentController {
 			@ModelAttribute("paymentForm") PaymentForm paymentForm, Principal principal) {
 			Long payerAccountId = accountService.getAccountByUsername(principal.getName()).getId();
 			paymentService.makePayment(payerAccountId, paymentForm.getReceiverAccountId(), paymentForm.getAmount());
-		return "makepayment";
+		return "redirect:/account";
 	}
 }

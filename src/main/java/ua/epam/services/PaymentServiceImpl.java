@@ -1,10 +1,12 @@
 package ua.epam.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ua.epam.domain.Account;
 import ua.epam.domain.Payment;
 import ua.epam.repository.interfaces.AccountRepository;
 import ua.epam.repository.interfaces.PaymentRepository;
@@ -36,6 +38,13 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public void makePayment(Long payerAccountId, Long receiverAccountId,
 			double amount) {
-		
+		Account payerAccount = accountRepository.find(payerAccountId);
+		Account receiverAccount = accountRepository.find(receiverAccountId);
+		Payment payment = new Payment(amount, new Date(),payerAccount, receiverAccount );
+		payerAccount.setBalance(payerAccount.getBalance() - payment.getAmount());
+		receiverAccount.setBalance(receiverAccount.getBalance() + payment.getAmount());
+		paymentRepository.save(payment);
+		accountRepository.update(payerAccount);
+		accountRepository.update(receiverAccount);
 	}
 }

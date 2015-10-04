@@ -36,10 +36,10 @@ public class Account extends BaseEntity {
 	private Set<CreditCard> creditCards;
 
 	@OneToMany(mappedBy = "payerAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Payment> payers;
+	private List<Payment> payed;
 
 	@OneToMany(mappedBy = "receiverAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Payment> receivers;
+	private List<Payment> received;
 
 	public Account() {
 	}
@@ -86,26 +86,26 @@ public class Account extends BaseEntity {
 		this.creditCards = creditCards;
 	}
 
-	public List<Payment> getPayers() {
-		if (payers == null) {
-			payers = new ArrayList<Payment>();
+	public List<Payment> getPayed() {
+		if (payed == null) {
+			payed = new ArrayList<Payment>();
 		}
-		return payers;
+		return payed;
 	}
 
-	public void setPayers(List<Payment> payers) {
-		this.payers = payers;
+	public void setPayed(List<Payment> payed) {
+		this.payed = payed;
 	}
 
-	public List<Payment> getReceivers() {
-		if (receivers == null) {
-			receivers = new ArrayList<Payment>();
+	public List<Payment> getReceived() {
+		if (received == null) {
+			received = new ArrayList<Payment>();
 		}
-		return receivers;
+		return received;
 	}
 
-	public void setReceivers(List<Payment> receivers) {
-		this.receivers = receivers;
+	public void setReceived(List<Payment> received) {
+		this.received = received;
 	}
 
 	@Override
