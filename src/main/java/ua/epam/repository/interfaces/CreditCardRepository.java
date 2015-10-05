@@ -18,4 +18,5 @@ public interface CreditCardRepository {
 	Long getAmountForAccount(Long accountId);
 	
 	List<CreditCard> findAllForAccount(Long accountId);
+	
 }

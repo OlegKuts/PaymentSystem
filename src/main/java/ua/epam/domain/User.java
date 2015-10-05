@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ua.epam.annotations.UniqueUsername;
+
 @Entity
 @Table(name = "user_authentication")
 @NamedQueries({
@@ -22,6 +24,7 @@ import javax.validation.constraints.Size;
 public class User extends BaseEntity {
 	@NotNull
 	@Size(min = 4, max = 20, message = "User name must be {min} to {max}")
+	@UniqueUsername(message = "username already exists")
 	private String username;
 	private String password;
 	private Boolean enabled;

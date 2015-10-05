@@ -7,20 +7,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import ua.epam.annotations.UniqCardNumber;
 
 @Entity
 @Table(name = "credit_card")
 @NamedQueries({
 		@NamedQuery(name = "CreditCard.findAll", query = "SELECT c FROM CreditCard c "),
 		@NamedQuery(name = "CreditCard.findByCardNumber", query = "SELECT c FROM CreditCard c WHERE c.cardNumber = :cardNumber"),
-		@NamedQuery(name="CreditCard.getAmountForAccount", query="SELECT count(c) FROM CreditCard c WHERE c.account.id = :accountId"),
-		@NamedQuery(name = "CreditCard.findAllForAccount", query = "SELECT c FROM CreditCard c WHERE c.account.id = :accountId")
-})
+		@NamedQuery(name = "CreditCard.getAmountForAccount", query = "SELECT count(c) FROM CreditCard c WHERE c.account.id = :accountId"),
+		@NamedQuery(name = "CreditCard.findAllForAccount", query = "SELECT c FROM CreditCard c WHERE c.account.id = :accountId") })
 public class CreditCard extends BaseEntity {
 	private String cvv2;
-	private Double amount;
 	@Column(name = "card_number")
+	@Size(min=12, max=12, message="card number must contain {min}")
+	@UniqCardNumber(message = "this card is already registered")
 	private String cardNumber;
+	private Double amount;
 
 	@ManyToOne
 	@JoinColumn(name = "account_id")

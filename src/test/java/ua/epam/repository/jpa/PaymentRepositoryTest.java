@@ -54,8 +54,8 @@ public class PaymentRepositoryTest extends RepositoryTestTemplate {
 		Payment payment = new Payment();
 		Payment payment2 = new Payment();
 		Long expectedAmount = 2L;
-		account.getPayers().add(payment);
-		account.getPayers().add(payment2);
+		account.getPayed().add(payment);
+		account.getPayed().add(payment2);
 		payment.setPayerAccount(account);
 		payment2.setPayerAccount(account);
 		accountRepository.save(account);
@@ -74,8 +74,8 @@ public class PaymentRepositoryTest extends RepositoryTestTemplate {
 		Payment payment = new Payment();
 		Payment payment2 = new Payment();
 		int expectedSize = 2;
-		account.getPayers().add(payment);
-		account.getPayers().add(payment2);
+		account.getPayed().add(payment);
+		account.getPayed().add(payment2);
 		payment.setPayerAccount(account);
 		payment2.setPayerAccount(account);
 		accountRepository.save(account);
@@ -94,8 +94,8 @@ public class PaymentRepositoryTest extends RepositoryTestTemplate {
 		Payment payment = new Payment();
 		Payment payment2 = new Payment();
 		Long expectedAmount = 2L;
-		account.getReceivers().add(payment);
-		account.getReceivers().add(payment2);
+		account.getReceived().add(payment);
+		account.getReceived().add(payment2);
 		payment.setReceiverAccount(account);
 		payment2.setReceiverAccount(account);
 		accountRepository.save(account);
@@ -113,8 +113,8 @@ public class PaymentRepositoryTest extends RepositoryTestTemplate {
 		Payment payment = new Payment();
 		Payment payment2 = new Payment();
 		int expectedSize = 2;
-		account.getReceivers().add(payment);
-		account.getReceivers().add(payment2);
+		account.getReceived().add(payment);
+		account.getReceived().add(payment2);
 		payment.setReceiverAccount(account);
 		payment2.setReceiverAccount(account);
 		accountRepository.save(account);
