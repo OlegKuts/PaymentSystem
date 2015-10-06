@@ -16,4 +16,6 @@ public interface UserRepository {
 	User find(Long id);
 
 	boolean isUsernameUniq(String username);
+	
+	List<User> findAllWithUserRole();
 }

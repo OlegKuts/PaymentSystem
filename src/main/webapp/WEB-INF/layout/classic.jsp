@@ -46,20 +46,20 @@
 
 						<security:authorize access="hasRole('ROLE_ADMIN')">
 							<li class="${current == 'users' ? 'active' : ''}"><a
-								href='<spring:url value="/admin/users.html"/>'>Users</a></li>
+								href='<spring:url value="/admin/users"/>'>Users</a></li>
 						</security:authorize>
 
 						<security:authorize access="! isAuthenticated()">
 							<li class="${current == 'register' ? 'active' : '' }"><a
-								href='<spring:url value="/user/register.html"/>'>Register</a></li>
+								href='<spring:url value="/user/register"/>'>Register</a></li>
 							<li class="${current == 'login' ? 'active' : '' }"><a
-								href='<spring:url value="/login.html"/>'>Login</a></li>
+								href='<spring:url value="/login"/>'>Login</a></li>
 						</security:authorize>
 
 						<security:authorize
 							access="isAuthenticated() && ! hasRole('ROLE_ADMIN')">
 							<li class="${current == 'users' ? 'active' : '' }"><a
-								href='<spring:url value="/account.html"/>'>My Account</a></li>
+								href='<spring:url value="/account"/>'>My Account</a></li>
 						</security:authorize>
 
 						<security:authorize access="isAuthenticated()">

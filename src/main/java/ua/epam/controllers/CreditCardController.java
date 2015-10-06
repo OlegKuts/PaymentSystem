@@ -24,7 +24,6 @@ import ua.epam.services.interfaces.PaymentService;
 import ua.epam.services.interfaces.UserService;
 
 @Controller
-@RequestMapping("/creditcard")
 public class CreditCardController {
 	@Autowired
 	CreditCardService creditCardService;
@@ -35,7 +34,7 @@ public class CreditCardController {
 	@Autowired
 	PaymentService paymentService;
 
-	@RequestMapping(value = "/addnew", method = RequestMethod.POST)
+	@RequestMapping(value = "/addnewcard", method = RequestMethod.POST)
 	public String addNew(
 			@ModelAttribute("newCard") @Valid CreditCard creditCard,
 			BindingResult bindingResult, Principal principal, Model model) {
@@ -43,7 +42,7 @@ public class CreditCardController {
 			return showUserAccount(principal, model);
 		}
 		creditCardService.registerNew(creditCard, principal.getName());
-		return "redirect:/account.html";
+		return "redirect:/account";
 	}
 
 	private String showUserAccount(Principal principal, Model model) {

@@ -24,32 +24,41 @@ public class JpaUserRepository implements UserRepository {
 	}
 
 	@Override
-	public User find(Long id) {	
-		return em.find(User.class,id);
+	public User find(Long id) {
+		return em.find(User.class, id);
 	}
-	
-	public User findByUsername(String username){
-		TypedQuery<User> query = em.createNamedQuery("User.findByUsername",User.class).setParameter("username", username);
-		return query.getSingleResult();		
+
+	public User findByUsername(String username) {
+		TypedQuery<User> query = em.createNamedQuery("User.findByUsername",
+				User.class).setParameter("username", username);
+		return query.getSingleResult();
 	}
 
 	@Override
 	public List<User> findAll() {
-		TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
+		TypedQuery<User> query = em
+				.createNamedQuery("User.findAll", User.class);
 		return query.getResultList();
 	}
 
 	@Override
 	@Transactional
 	public void update(User user) {
-		em.merge(user);		
+		em.merge(user);
 	}
 
 	@Override
 	public boolean isUsernameUniq(String username) {
-		TypedQuery<User> query = em.createNamedQuery("User.findByUsername", User.class).setParameter("username", username);
+		TypedQuery<User> query = em.createNamedQuery("User.findByUsername",
+				User.class).setParameter("username", username);
 		List<User> users = query.getResultList();
 		return users.isEmpty();
 	}
 
+	@Override
+	public List<User> findAllWithUserRole() {
+		TypedQuery<User> query = em
+				.createNamedQuery("User.findAllUserRole", User.class);
+		return query.getResultList();
+	}
 }

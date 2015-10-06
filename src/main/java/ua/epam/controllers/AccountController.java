@@ -3,6 +3,8 @@ package ua.epam.controllers;
 import java.security.Principal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import ua.epam.domain.CreditCard;
 import ua.epam.domain.Payment;
 import ua.epam.domain.User;
 import ua.epam.form.RefundBalanceForm;
+import ua.epam.form.UserForm;
 import ua.epam.services.interfaces.AccountService;
 import ua.epam.services.interfaces.CreditCardService;
 import ua.epam.services.interfaces.PaymentService;
@@ -36,7 +39,7 @@ public class AccountController {
 	CreditCardService creditCardService;
 
 	@RequestMapping("")
-	public String showUserAccount(Principal principal, Model model) {
+	public String showUserProfile(Principal principal, Model model) {
 		String username = principal.getName();
 		User user = userService.findByUsername(username);
 		Account account = user.getAccount();
@@ -49,25 +52,30 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/block")
-	public String blockAccountByUser(	Model model, Principal principal) {
-		Account account = accountService.getAccountByUsername(principal.getName());
+	public String blockAccountByUser(Model model, Principal principal) {
+		Account account = accountService.getAccountByUsername(principal
+				.getName());
 		accountService.deactiveAccount(account.getId());
 		return "redirect:/account";
 	}
 
 	@RequestMapping(value = "/refund", method = RequestMethod.GET)
-	public String showRefundAccountBalance( Model model, Principal principal) {
-		Account account = accountService.getAccountByUsername(principal.getName());
+	public String showRefundAccountBalance(Model model, Principal principal) {
+		Account account = accountService.getAccountByUsername(principal
+				.getName());
 		Long accountId = account.getId();
 		List<CreditCard> cards = creditCardService.findAllForAccount(accountId);
 		model.addAttribute("cards", cards);
 		model.addAttribute("accountId", accountId);
 		return "addfunds";
 	}
-	
+
 	@RequestMapping(value = "/refund", method = RequestMethod.POST)
-	public String refundAccountBalance(@ModelAttribute("refundForm") RefundBalanceForm refundForm) {
-		accountService.refundAccount(refundForm.getCardId(),refundForm.getAccountId(),refundForm.getAmount());
+	public String refundAccountBalance(
+			@ModelAttribute("refundForm") RefundBalanceForm refundForm) {
+		accountService.refundAccount(refundForm.getCardId(),
+				refundForm.getAccountId(), refundForm.getAmount());
 		return "redirect:/account";
 	}
+
 }

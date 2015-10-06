@@ -29,7 +29,7 @@ public class AdminController {
 
 	@RequestMapping("/users")
 	public String listUsers(Model model) {
-		List<User> users = userService.getAllUsers();
+		List<User> users = userService.getAllUsersWithUserRole();
 		model.addAttribute("users", users);
 		return "users";
 	}

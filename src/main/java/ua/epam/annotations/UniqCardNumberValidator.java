@@ -19,6 +19,9 @@ public class UniqCardNumberValidator implements
 
 	@Override
 	public boolean isValid(String cardNumber, ConstraintValidatorContext context) {
+		if(creditCardRepository == null) {
+			return true;
+		}
 		return creditCardRepository.isCardNumberUniq(cardNumber);
 	}
 

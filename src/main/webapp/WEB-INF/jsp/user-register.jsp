@@ -1,6 +1,6 @@
 <%@ include file="../layout/taglib.jsp"%>
 
-<form:form commandName="userform" cssClass="form-horizontal">
+<form:form modelAttribute="userform" cssClass="form-horizontal">
 	<form:errors path="*" />
 	<div class="form-group">
 		<label for="user.username" class="col-sm-2 control-label">Username:</label>

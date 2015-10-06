@@ -20,6 +20,9 @@ import ua.epam.annotations.UniqueUsername;
 @Table(name = "user_authentication")
 @NamedQueries({
 		@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+		@NamedQuery(name = "User.findAllUserRole", query = "SELECT u FROM User u WHERE"
+				+ " u.id  IN(SELECT  a.user.id FROM UserAuthorization a WHERE a.role = 'ROLE_USER')"
+				+ " and u.id  NOT IN(SELECT  a.user.id FROM UserAuthorization a WHERE a.role = 'ROLE_ADMIN')"),
 		@NamedQuery(name = "User.findByUsername", query = "SELECT  u FROM User u WHERE u.username = :username") })
 public class User extends BaseEntity {
 	@NotNull

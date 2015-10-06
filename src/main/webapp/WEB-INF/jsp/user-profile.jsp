@@ -1,7 +1,7 @@
 <%@ include file="../layout/taglib.jsp"%>
 <div>
 	<div class="col-sm-8">
-
+		<security:authentication property="principal" var="principal" />
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#home"
@@ -57,11 +57,12 @@
 					</table>
 				</div>
 				<!-- Button trigger modal -->
-				<security:authorize access="! hasRole('ROLE_ADMIN')">
+				<c:if
+					test="${user.account.active eq true and principal.username eq user.username}">
 					<button type="button" class="btn btn-primary  btn-default"
 						data-toggle="modal" data-target="#myModal">Add new Credit
 						Card</button>
-				</security:authorize>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -77,10 +78,10 @@
 			<tr>
 				<td>AccountID:</td>
 				<td>${user.account.id}</td>
-				<td><c:if test="${user.account.active eq true }">
-						<security:authorize access="! hasRole('ROLE_ADMIN')">
-							<a
-								href="<spring:url value="/account/block" />"
+				<td><c:if
+						test="${user.account.active eq true and principal.username eq user.username}">
+						<security:authorize access="!hasRole('ROLE_ADMIN')">
+							<a href="<spring:url value="/account/block" />"
 								class="btn btn-danger btn-sm triggerRemove"> block account </a>
 						</security:authorize>
 					</c:if> <c:if test="${user.account.active eq false }">
@@ -90,34 +91,28 @@
 			<tr>
 				<td>Balance:</td>
 				<td>${user.account.balance}</td>
-				<td><c:if test="${user.account.active eq true }">
-						<security:authorize access="! hasRole('ROLE_ADMIN')">
-							<a href="<spring:url value="/account/refund" />"
-								class="btn btn-info btn-sm triggerRemove"> add funds </a>
-							<!-- <form  action="account/refund" method="get">
-							<input type="submit" value="add funds" class="btn btn-info btn-sm triggerRemove"/>								
-						</form> -->
-						</security:authorize>
-					</c:if> <c:if test="${user.account.active eq false }">
-						<p class="btn-danger">Account is blocked</p>
-					</c:if></td>
+
+				<td><c:if
+						test="${user.account.active eq true and principal.username eq user.username}">
+						<a href="<spring:url value="/account/refund" />"
+							class="btn btn-info btn-sm triggerRemove"> add funds </a>
+					</c:if>
 			</tr>
 			<tr>
-				<td colspan="3"><c:if test="${user.account.active eq true }">
-						<security:authorize access="! hasRole('ROLE_ADMIN')">
-							<a href="<spring:url value="/payments/makepayment" />"
-								class="btn btn-info btn-primary triggerRemove"> make a
-								payment </a>
-						</security:authorize>
+				<td colspan="3"><c:if
+						test="${user.account.active eq true and principal.username eq user.username }">
+						<a href="<spring:url value="/payments/makepayment" />"
+							class="btn btn-info btn-primary triggerRemove"> make a
+							payment </a>
 					</c:if></td>
 			</tr>
 		</table>
 	</div>
 
 
-	<form:form action="creditcard/addnew.html" cssClass="form-horizontal"
-		modelAttribute="newCard">
-	<form:errors path="*"/>
+	<form:form cssClass="form-horizontal" modelAttribute="newCard"
+		action="addnewcard">
+		<form:errors path="*" />
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
