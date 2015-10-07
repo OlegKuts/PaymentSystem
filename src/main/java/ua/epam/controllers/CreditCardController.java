@@ -24,6 +24,7 @@ import ua.epam.services.interfaces.PaymentService;
 import ua.epam.services.interfaces.UserService;
 
 @Controller
+@RequestMapping("/creditcard")
 public class CreditCardController {
 	@Autowired
 	CreditCardService creditCardService;

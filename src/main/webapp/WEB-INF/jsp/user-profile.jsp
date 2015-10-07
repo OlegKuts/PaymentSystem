@@ -1,4 +1,5 @@
 <%@ include file="../layout/taglib.jsp"%>
+
 <div>
 	<div class="col-sm-8">
 		<security:authentication property="principal" var="principal" />
@@ -111,7 +112,7 @@
 
 
 	<form:form cssClass="form-horizontal" modelAttribute="newCard"
-		action="addnewcard">
+		action="${pageContext.request.contextPath}/creditcard/addnewcard">
 		<form:errors path="*" />
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

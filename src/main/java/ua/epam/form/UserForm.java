@@ -8,6 +8,7 @@ import ua.epam.domain.UserInformation;
 public class UserForm {
 	@Valid
 	private User user;
+	@Valid
 	private UserInformation userInformation;
 
 	public User getUser() {

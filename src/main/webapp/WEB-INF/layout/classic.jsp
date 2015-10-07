@@ -45,21 +45,22 @@
 							href='<spring:url value="/"/>'>Home</a></li>
 
 						<security:authorize access="hasRole('ROLE_ADMIN')">
-							<li class="${current == 'users' ? 'active' : ''}"><a
+							<li class="${currentLabel == null ? current == 'users' ? 'active' : '' : 'active'}"><a
 								href='<spring:url value="/admin/users"/>'>Users</a></li>
 						</security:authorize>
+						
+						<security:authorize access="isAuthenticated()">
+							<li
+								class="${currentLabel == null ? current == 'account' ? 'active' : '' : ''}"><a
+								href='<spring:url value="/account"/>'>My Account</a></li>
+						</security:authorize>
+
 
 						<security:authorize access="! isAuthenticated()">
 							<li class="${current == 'register' ? 'active' : '' }"><a
 								href='<spring:url value="/user/register"/>'>Register</a></li>
 							<li class="${current == 'login' ? 'active' : '' }"><a
 								href='<spring:url value="/login"/>'>Login</a></li>
-						</security:authorize>
-
-						<security:authorize
-							access="isAuthenticated() && ! hasRole('ROLE_ADMIN')">
-							<li class="${current == 'users' ? 'active' : '' }"><a
-								href='<spring:url value="/account"/>'>My Account</a></li>
 						</security:authorize>
 
 						<security:authorize access="isAuthenticated()">

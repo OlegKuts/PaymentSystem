@@ -58,6 +58,10 @@ public class AdminController {
 		model.addAttribute(user);
 		model.addAttribute(account);
 		model.addAttribute("payers", payers);
+		/*
+		 * need this for classic layout to change tiles 'current' param
+		 */
+		model.addAttribute("currentLabel", "users");
 		return "userprofile";
 	}
 }

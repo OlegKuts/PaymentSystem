@@ -23,7 +23,7 @@
 	<definition name="userprofile" extends="common">
 		<put-attribute name="title" value="Payment Sysytem" />
 		<put-attribute name="body" value="/WEB-INF/jsp/user-profile.jsp" />
-		<put-attribute name="current" value="users" />
+		<put-attribute name="current" value="account" />
 	</definition>
 
 	<definition name="user-register" extends="common">

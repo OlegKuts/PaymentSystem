@@ -21,7 +21,7 @@ import ua.epam.annotations.UniqCardNumber;
 public class CreditCard extends BaseEntity {
 	private String cvv2;
 	@Column(name = "card_number")
-	//@Size(min=12, max=12, message="card number must contain {min}")
+	@Size(min=12, max=12, message="card number must contain {min} numbers")
 	@UniqCardNumber(message = "this card is already registered")
 	private String cardNumber;
 	private Double amount;

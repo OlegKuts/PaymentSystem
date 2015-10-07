@@ -6,13 +6,14 @@
 		<label for="user.username" class="col-sm-2 control-label">Username:</label>
 		<div class="col-sm-10">
 			<form:input path="user.username" cssClass="form-control" />
-			<form:errors path="user.username" cssClass="error"/>
+			<form:errors path="user.username" cssClass="danger"/>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="user.password" class="col-sm-2 control-label">Password:</label>
 		<div class="col-sm-10">
 			<form:password path="user.password" cssClass="form-control" />
+			<form:errors path="user.password" cssClass="error"/>
 		</div>
 	</div>
 	<div class="form-group">
@@ -20,6 +21,7 @@
 			Name:</label>
 		<div class="col-sm-10">
 			<form:input path="userInformation.firstName" cssClass="form-control" />
+			<form:errors path="userInformation.firstName" cssClass="error"/>
 		</div>
 	</div>
 	<div class="form-group">

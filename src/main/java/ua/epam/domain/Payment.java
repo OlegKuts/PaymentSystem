@@ -35,11 +35,7 @@ public class Payment extends BaseEntity {
 	private Account receiverAccount;
 
 	public Payment() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	
 
 	public Payment(Double amount, Date paymentDate, Account payerAccount,
 			Account receiverAccount) {
@@ -48,8 +44,6 @@ public class Payment extends BaseEntity {
 		this.payerAccount = payerAccount;
 		this.receiverAccount = receiverAccount;
 	}
-
-
 
 	public Double getAmount() {
 		return amount;

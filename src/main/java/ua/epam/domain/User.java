@@ -26,9 +26,11 @@ import ua.epam.annotations.UniqueUsername;
 		@NamedQuery(name = "User.findByUsername", query = "SELECT  u FROM User u WHERE u.username = :username") })
 public class User extends BaseEntity {
 	@NotNull
-	@Size(min = 4, max = 20, message = "User name must be {min} to {max}")
-	@UniqueUsername(message = "username already exists")
+	@Size(min = 4, max = 20, message = "Username must be {min} to {max}")
+	@UniqueUsername(message = "Username already exists")
 	private String username;
+	@NotNull
+	@Size(min = 4, max = 20, message = "Password  must contain {min} to {max} characters")
 	private String password;
 	private Boolean enabled;
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
