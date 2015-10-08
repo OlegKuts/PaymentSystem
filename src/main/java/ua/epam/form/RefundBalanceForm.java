@@ -1,9 +1,15 @@
 package ua.epam.form;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+
 public class RefundBalanceForm {
 	private Long cardId;
 	private Long accountId;
-	private double amount;
+	@Min(value=1, message="amount should be not less than {value}")
+	@NotNull(message="enter amount please")
+	private Double amount;
 
 	public Long getCardId() {
 		return cardId;
@@ -21,11 +27,12 @@ public class RefundBalanceForm {
 		this.accountId = accountId;
 	}
 
-	public double getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+	
 }

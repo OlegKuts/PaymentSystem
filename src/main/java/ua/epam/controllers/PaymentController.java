@@ -2,8 +2,11 @@ package ua.epam.controllers;
 
 import java.security.Principal;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +21,7 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 	@Autowired
-	private AccountService accountService ;
+	private AccountService accountService;
 
 	@RequestMapping("/makepayment")
 	public String showMakePayment() {
@@ -27,9 +30,15 @@ public class PaymentController {
 
 	@RequestMapping(value = "/makepayment", method = RequestMethod.POST)
 	public String makePayment(
-			@ModelAttribute("paymentForm") PaymentForm paymentForm, Principal principal) {
-			Long payerAccountId = accountService.getAccountByUsername(principal.getName()).getId();
-			paymentService.makePayment(payerAccountId, paymentForm.getReceiverAccountId(), paymentForm.getAmount());
+			@ModelAttribute("paymentForm") @Valid PaymentForm paymentForm,
+			BindingResult result, Principal principal) {
+		if (result.hasErrors()) {
+			return "makepayment";
+		}
+		Long payerAccountId = accountService.getAccountByUsername(
+				principal.getName()).getId();
+		paymentService.makePayment(payerAccountId,
+				paymentForm.getReceiverAccountId(), paymentForm.getAmount());
 		return "redirect:/account";
 	}
 }

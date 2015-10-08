@@ -1,9 +1,12 @@
 package ua.epam.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 
 import ua.epam.domain.Account;
 import ua.epam.domain.CreditCard;
@@ -33,5 +36,15 @@ public class CreditCardServiceImpl implements CreditCardService {
 	@Override
 	public List<CreditCard> findAllForAccount(Long accountId) {
 		return creditCardRepository.findAllForAccount(accountId);
+	}
+
+	@Override
+	public List<String> getErrorMessages(BindingResult bindingResult) {
+		List<ObjectError> errors = bindingResult.getAllErrors();
+		List<String> messages = new ArrayList<String>();
+		for (ObjectError error : errors) {
+			messages.add(error.getDefaultMessage());
+		}
+		return messages;
 	}
 }

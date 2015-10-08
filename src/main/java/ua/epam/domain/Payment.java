@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,12 +38,23 @@ public class Payment extends BaseEntity {
 	public Payment() {
 	}
 
+	public Payment(Double amount, Account payerAccount, Account receiverAccount) {
+		this.amount = amount;
+		this.payerAccount = payerAccount;
+		this.receiverAccount = receiverAccount;
+	}
+
 	public Payment(Double amount, Date paymentDate, Account payerAccount,
 			Account receiverAccount) {
 		this.amount = amount;
 		this.paymentDate = paymentDate;
 		this.payerAccount = payerAccount;
 		this.receiverAccount = receiverAccount;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		paymentDate  = new Date();
 	}
 
 	public Double getAmount() {

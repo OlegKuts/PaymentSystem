@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import ua.epam.annotations.UniqCardNumber;
@@ -19,10 +20,12 @@ import ua.epam.annotations.UniqCardNumber;
 		@NamedQuery(name = "CreditCard.getAmountForAccount", query = "SELECT count(c) FROM CreditCard c WHERE c.account.id = :accountId"),
 		@NamedQuery(name = "CreditCard.findAllForAccount", query = "SELECT c FROM CreditCard c WHERE c.account.id = :accountId") })
 public class CreditCard extends BaseEntity {
+	@Size(min=3, max=3,message="cvv2 size must be {min}" )
+	@Pattern(regexp="[\\d]*", message="cvv2 must consist of numbers only")
 	private String cvv2;
 	@Column(name = "card_number")
-	@Size(min=12, max=12, message="card number must contain {min} numbers")
-	@UniqCardNumber(message = "this card is already registered")
+	@Size(min=12, max=12, message="Card number must contain {min} numbers")
+	@UniqCardNumber(message = "Credit card with this number is already registered")
 	private String cardNumber;
 	private Double amount;
 

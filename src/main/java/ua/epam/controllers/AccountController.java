@@ -43,11 +43,14 @@ public class AccountController {
 		String username = principal.getName();
 		User user = userService.findByUsername(username);
 		Account account = user.getAccount();
-		List<Payment> payers = paymentService
+		List<Payment> payments = paymentService
 				.getAllPaymentsForPayerAccount(account.getId());
+		List<Payment> receives = paymentService
+				.getAllReceivesForPayerAccount(account.getId());
 		model.addAttribute("user", user);
 		model.addAttribute("account", account);
-		model.addAttribute("payers", payers);
+		model.addAttribute("payments", payments);
+		model.addAttribute("receives", receives);
 		return "userprofile";
 	}
 
@@ -72,7 +75,11 @@ public class AccountController {
 
 	@RequestMapping(value = "/refund", method = RequestMethod.POST)
 	public String refundAccountBalance(
-			@ModelAttribute("refundForm") RefundBalanceForm refundForm) {
+			@ModelAttribute("refundForm") @Valid RefundBalanceForm refundForm,
+			BindingResult bindingResult, Model model, Principal principal) {
+		if (bindingResult.hasErrors()) {
+			return showRefundAccountBalance(model, principal);
+		}
 		accountService.refundAccount(refundForm.getCardId(),
 				refundForm.getAccountId(), refundForm.getAmount());
 		return "redirect:/account";

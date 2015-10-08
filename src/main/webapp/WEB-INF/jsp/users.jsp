@@ -4,20 +4,23 @@
 <table class="table table-bordered table-hover table-striped">
 	<thead>
 		<tr>
-			<th>username</th>
-			<th>accountID</th>
-			<th>operations</th>
+			<th>Username</th>
+			<th>AccountID</th>
+			<th>User</th>
+			<th>Email</th>
+			<th>Operations</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach items="${users}" var="user">
 			<tr>
-				<td><a href="<spring:url value="/admin/users/${user.id}.html" />">
-						<c:out value="${user.username}" />
+				<td><a
+					href="<spring:url value="/admin/users/${user.id}.html" />"> <c:out
+							value="${user.username}" />
 				</a></td>
-				<td>
-						<c:out value="${user.account.id}" />
-				</a></td>
+				<td><c:out value="${user.account.id}" /></td>
+				<td><c:out value="${user.userInformation.firstName} ${user.userInformation.lastName}" /></td>
+				<td><c:out value="${user.userInformation.email}" /></td>
 				<td><c:if test="${user.account.active eq true }">
 						<a
 							href="<spring:url value="/admin/users/block/${user.account.id}.html" />"

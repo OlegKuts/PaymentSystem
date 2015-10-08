@@ -1,5 +1,12 @@
 <%@ include file="../layout/taglib.jsp"%>
-
+<c:if test="${errorMessages != null}">
+	<div class="alert alert-danger">
+		<c:forEach items="${errorMessages}" var="message">
+			<c:out value="${message}" />
+			<br>
+		</c:forEach>
+	</div>
+</c:if>
 <div>
 	<div class="col-sm-8">
 		<security:authentication property="principal" var="principal" />
@@ -22,14 +29,23 @@
 						<tr>
 							<th>Amount</th>
 							<th>Date</th>
+							<th>Receiver User</th>
 							<th>Receiver Account</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${payers}" var="payment">
+						<c:forEach items="${payments}" var="payment">
+							<c:set var="firstName"
+								value="${payment.receiverAccount.user.userInformation.firstName}" />
+							<c:set var="lastName"
+								value="${payment.receiverAccount.user.userInformation.lastName}" />
+							<fmt:formatDate value="${payment.paymentDate}"
+								pattern="dd-MM-yyyy HH:mm:ss" var="paymentDate" />
 							<tr>
 								<td><c:out value="${payment.amount}" /></td>
-								<td><c:out value="${payment.paymentDate}" /></td>
+								<td><c:out value="${paymentDate}"></c:out></td>
+								<td><c:out value="${firstName}" /> <c:out
+										value="${lastName}" /></td>
 								<td align="center"><c:out
 										value="${payment.receiverAccount.id}" /></td>
 							</tr>
@@ -113,7 +129,6 @@
 
 	<form:form cssClass="form-horizontal" modelAttribute="newCard"
 		action="${pageContext.request.contextPath}/creditcard/addnewcard">
-		<form:errors path="*" />
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
@@ -131,14 +146,19 @@
 							<label for="cardNumber" class="col-sm-2 control-label">Card
 								Number:</label>
 							<div class="col-sm-10">
-								<form:input path="cardNumber" cssClass="form-control" />
+								<form:input path="cardNumber" cssClass="form-control"
+									pattern="\\d{12}"
+									oninvalid="this.setCustomValidity('Card number must consist of 12 digits')"
+									oninput="setCustomValidity('')" />
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="cvv2" class="col-sm-2 control-label">cvv2:</label>
 							<div class="col-sm-10">
-								<form:input path="cvv2" cssClass="form-control" />
+								<form:input path="cvv2" cssClass="form-control" pattern="\\d{3}"
+									oninvalid="this.setCustomValidity('cvv2 must consist of 3 digits')"
+									oninput="setCustomValidity('')" />
 							</div>
 						</div>
 					</div>
@@ -152,4 +172,3 @@
 		</div>
 	</form:form>
 </div>
-<!-- <script>alert(document.getElementById('table1').rows[0].cells.length)</script> -->

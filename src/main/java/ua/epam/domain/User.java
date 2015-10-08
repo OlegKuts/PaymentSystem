@@ -11,7 +11,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import ua.epam.annotations.UniqueUsername;
@@ -25,13 +24,13 @@ import ua.epam.annotations.UniqueUsername;
 				+ " and u.id  NOT IN(SELECT  a.user.id FROM UserAuthorization a WHERE a.role = 'ROLE_ADMIN')"),
 		@NamedQuery(name = "User.findByUsername", query = "SELECT  u FROM User u WHERE u.username = :username") })
 public class User extends BaseEntity {
-	@NotNull
-	@Size(min = 4, max = 20, message = "Username must be {min} to {max}")
+	@Size(min = 4, max = 20, message = "Username must contain {min} to {max} characters")
 	@UniqueUsername(message = "Username already exists")
 	private String username;
-	@NotNull
-	@Size(min = 4, max = 20, message = "Password  must contain {min} to {max} characters")
+	
+	@Size(min = 4, message = "Password  must contain minimum {min}  characters")
 	private String password;
+	
 	private Boolean enabled;
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private UserInformation userInformation;

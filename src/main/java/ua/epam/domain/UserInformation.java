@@ -5,22 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user_information")
 public class UserInformation extends BaseEntity {
 	@Column(name = "firstname")
-	@Size(min = 1, max = 20, message = "First name")
+	@Size(min = 1, max = 25, message = "First name must contain {min} to {max} characters")
+	@Pattern(regexp = "[\\D]*", message = "First name must consist of characters only")
 	private String firstName;
+
 	@Column(name = "lastname")
-	@Size(min = 1, max = 20, message = "Last name")
+	@Size(min = 1, max = 25, message = "Last name must contain {min} to {max} characters")
+	@Pattern(regexp = "[\\D]*", message = "Last name must consist of characters only")
 	private String lastName;
-	@Email(message="ivaild email")
-	@Size(min=4)
+
+	@NotEmpty(message = "Email can't be empty")
+	@Email(message = "Invaild email")
 	private String email;
 
 	@OneToOne
