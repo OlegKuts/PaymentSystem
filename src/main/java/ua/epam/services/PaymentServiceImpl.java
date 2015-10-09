@@ -9,7 +9,7 @@ import ua.epam.domain.Account;
 import ua.epam.domain.Payment;
 import ua.epam.repository.interfaces.AccountRepository;
 import ua.epam.repository.interfaces.PaymentRepository;
-import ua.epam.controllers.exceptions.NotEnoughFunds;
+import ua.epam.controllers.exceptions.NotEnoughFundsException;
 import ua.epam.services.exceptions.PaymentNotFoundException;
 import ua.epam.services.interfaces.PaymentService;
 
@@ -42,13 +42,13 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public void makePayment(Long payerAccountId, Long receiverAccountId,
-			double amount) {
+			double amount) throws NotEnoughFundsException {
 		Account payerAccount = accountRepository.find(payerAccountId);
 		Account receiverAccount = accountRepository.find(receiverAccountId);
 		Double payerAccountBalance = payerAccount.getBalance();
 		Double receiverAccountBalance = receiverAccount.getBalance();
 		if (payerAccountBalance < amount) {
-			throw new NotEnoughFunds("Not enough funds on account");
+			throw new NotEnoughFundsException("Not enough funds on account");
 		}
 		Payment payment = new Payment(amount, payerAccount, receiverAccount);
 		payerAccount.setBalance(payerAccountBalance - amount);

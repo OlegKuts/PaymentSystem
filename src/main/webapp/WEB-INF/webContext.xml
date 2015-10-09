@@ -24,4 +24,18 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</bean>
+	
+	
+  <!--   <bean id="simpleMappingExceptionResolver"
+          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">       
+        <property name="exceptionMappings">
+            <map>
+                <entry key="SQLException" value="databaseError"/>                
+            </map>
+        </property>
+
+        <property name="defaultErrorView" value="error"/>
+        <property name="exceptionAttribute" value="ex"/>
+        
+    </bean> -->
 </beans>

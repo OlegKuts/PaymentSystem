@@ -24,9 +24,10 @@ public class ControllerAdvisor {
 	public RefundBalanceForm getRefundForm() {
 		return new RefundBalanceForm();
 	}
-	
+
 	@ModelAttribute("paymentForm")
 	public PaymentForm getPaymentForm() {
 		return new PaymentForm();
 	}
+
 }

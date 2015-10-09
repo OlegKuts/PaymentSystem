@@ -1,4 +1,10 @@
 <%@ include file="../layout/taglib.jsp"%>
+<c:if test="${not empty exception}">
+	<div class="alert alert-warning">
+			<c:out value="${exceptionMessage}" />
+			<br>
+	</div>
+</c:if>
 <form:form modelAttribute="paymentForm">
 	<table>
 		<tr>

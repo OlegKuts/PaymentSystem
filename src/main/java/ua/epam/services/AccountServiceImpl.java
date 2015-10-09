@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ua.epam.controllers.exceptions.NotEnoughFundsException;
 import ua.epam.domain.Account;
 import ua.epam.domain.CreditCard;
 import ua.epam.repository.interfaces.AccountRepository;
@@ -60,12 +61,16 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void refundAccount(Long cardId, Long accountId, double amountToRefund ) {
+	public void refundAccount(Long cardId, Long accountId, double amountToRefund ) throws NotEnoughFundsException {
 		//Account account = accountRepository.find(accountId);
 		CreditCard creditCard = creditCardRepository.find(cardId);
 		Account account  = creditCard.getAccount();
-		double amountToWithdraw= creditCard.getAmount() - amountToRefund;
-		creditCard.setAmount(amountToWithdraw);
+		double creditCardBalance = creditCard.getAmount();
+		if(creditCardBalance <  amountToRefund){
+			throw new NotEnoughFundsException("Not enough funds on choosen credit card ");
+		}
+		double amountLeftOnCard= creditCardBalance - amountToRefund;
+		creditCard.setAmount(amountLeftOnCard);
 		account.setBalance(account.getBalance() + amountToRefund);
 		accountRepository.update(account);
 	}

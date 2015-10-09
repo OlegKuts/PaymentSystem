@@ -2,6 +2,7 @@ package ua.epam.services.interfaces;
 
 import java.util.List;
 
+import ua.epam.controllers.exceptions.NotEnoughFundsException;
 import ua.epam.domain.Account;
 
 public interface AccountService {
@@ -17,5 +18,5 @@ public interface AccountService {
 
 	Account getAccountByUsername(String name);
 
-	void refundAccount(Long cardId, Long accountId, double amountToRefund);
+	void refundAccount(Long cardId, Long accountId, double amountToRefund) throws NotEnoughFundsException;
 }

@@ -15,13 +15,15 @@
 			<li role="presentation" class="active"><a href="#home"
 				aria-controls="home" role="tab" data-toggle="tab">Payments</a></li>
 			<li role="presentation"><a href="#profile"
-				aria-controls="profile" role="tab" data-toggle="tab">Credit
-					cards</a></li>
+				aria-controls="profile" role="tab" data-toggle="tab">Receives</a></li>
+			<li role="presentation"><a href="#messages"
+				aria-controls="messages" role="tab" data-toggle="tab">Credit cards</a></li>
+
 		</ul>
 
 		<!-- Tab panes -->
-		<div class="tab-content ">
-			<div role="tabpanel" class="tab-pane active " id="home">
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="home">
 				<table id="table1"
 					class="table table-bordered table-hover table-striped">
 					<caption>User's payments</caption>
@@ -54,25 +56,55 @@
 				</table>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="profile">
-				<div role="tabpanel" class="tab-pane active " id="home">
-					<table class="table table-bordered table-hover table-striped">
-						<caption>User's credit cards</caption>
-						<thead>
+				<table id="table1"
+					class="table table-bordered table-hover table-striped">
+					<caption>User's payments</caption>
+					<thead>
+						<tr>
+							<th>Amount</th>
+							<th>Date</th>
+							<th>Payer User</th>
+							<th>Payer Account</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${receives}" var="receive">
+							<c:set var="firstName"
+								value="${receive.payerAccount.user.userInformation.firstName}" />
+							<c:set var="lastName"
+								value="${receive.payerAccount.user.userInformation.lastName}" />
+							<fmt:formatDate value="${receive.paymentDate}"
+								pattern="dd-MM-yyyy HH:mm:ss" var="receiveDate" />
 							<tr>
-								<th>Balance</th>
-								<th>Number</th>
+								<td><c:out value="${receive.amount}" /></td>
+								<td><c:out value="${receiveDate}"></c:out></td>
+								<td><c:out value="${firstName}" /> <c:out
+										value="${lastName}" /></td>
+								<td align="center"><c:out
+										value="${receive.payerAccount.id}" /></td>
 							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${user.account.creditCards}" var="card">
-								<tr>
-									<td><c:out value="${card.amount}" /></td>
-									<td align="center"><c:out value="${card.cardNumber}" /></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="messages">
+				<table class="table table-bordered table-hover table-striped">
+					<caption>User's credit cards</caption>
+					<thead>
+						<tr>
+							<th>Balance</th>
+							<th>Number</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${user.account.creditCards}" var="card">
+							<tr>
+								<td><c:out value="${card.amount}" /></td>
+								<td align="center"><c:out value="${card.cardNumber}" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 				<!-- Button trigger modal -->
 				<c:if
 					test="${user.account.active eq true and principal.username eq user.username}">
@@ -98,7 +130,7 @@
 				<td><c:if
 						test="${user.account.active eq true and principal.username eq user.username}">
 						<security:authorize access="!hasRole('ROLE_ADMIN')">
-							<a href="<spring:url value="/account/block" />"
+							<a  href="<spring:url value="/account/block" />"
 								class="btn btn-danger btn-sm triggerRemove"> block account </a>
 						</security:authorize>
 					</c:if> <c:if test="${user.account.active eq false }">
