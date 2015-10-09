@@ -2,8 +2,9 @@ package ua.epam.services.interfaces;
 
 import java.util.List;
 
-import ua.epam.controllers.exceptions.NotEnoughFundsException;
 import ua.epam.domain.Payment;
+import ua.epam.services.exceptions.NotEnoughFundsException;
+import ua.epam.services.exceptions.SameAccountException;
 
 public interface PaymentService {
 	Payment getPaymnetById(Long paymentId);
@@ -12,6 +13,6 @@ public interface PaymentService {
 	
 	List<Payment> getAllReceivesForPayerAccount(Long accountId);
 
-	void makePayment(Long payerAccountId, Long receiverAccountId, double amount) throws NotEnoughFundsException;
+	void makePayment(Long payerAccountId, Long receiverAccountId, double amount) throws NotEnoughFundsException, SameAccountException;
 
 }

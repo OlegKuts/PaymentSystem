@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ua.epam.controllers.exceptions.NotEnoughFundsException;
 import ua.epam.form.PaymentForm;
+import ua.epam.services.exceptions.NotEnoughFundsException;
+import ua.epam.services.exceptions.SameAccountException;
 import ua.epam.services.interfaces.AccountService;
 import ua.epam.services.interfaces.PaymentService;
 
@@ -39,10 +40,15 @@ public class PaymentController {
 		}
 		Long payerAccountId = accountService.getAccountByUsername(
 				principal.getName()).getId();
+		Long receiverAcoount = paymentForm.getReceiverAccountId();
 		try {
-			paymentService.makePayment(payerAccountId,
-					paymentForm.getReceiverAccountId(), paymentForm.getAmount());
+			paymentService.makePayment(payerAccountId, receiverAcoount,
+					paymentForm.getAmount());
 		} catch (NotEnoughFundsException e) {
+			model.addAttribute("exception", e);
+			model.addAttribute("exceptionMessage", e.getMessage());
+			return "makepayment";
+		} catch (SameAccountException e) {
 			model.addAttribute("exception", e);
 			model.addAttribute("exceptionMessage", e.getMessage());
 			return "makepayment";

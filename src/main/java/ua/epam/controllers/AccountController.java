@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ua.epam.controllers.exceptions.NotEnoughFundsException;
 import ua.epam.domain.Account;
 import ua.epam.domain.CreditCard;
-import ua.epam.domain.Payment;
-import ua.epam.domain.User;
 import ua.epam.form.RefundBalanceForm;
+import ua.epam.services.exceptions.NotEnoughFundsException;
 import ua.epam.services.interfaces.AccountService;
 import ua.epam.services.interfaces.CreditCardService;
 import ua.epam.services.interfaces.PaymentService;
@@ -38,18 +36,7 @@ public class AccountController {
 
 	@RequestMapping("")
 	public String showUserProfile(Principal principal, Model model) {
-		String username = principal.getName();
-		User user = userService.findByUsername(username);
-		Account account = user.getAccount();
-		List<Payment> payments = paymentService
-				.getAllPaymentsForPayerAccount(account.getId());
-		List<Payment> receives = paymentService
-				.getAllReceivesForPayerAccount(account.getId());
-		model.addAttribute("user", user);
-		model.addAttribute("account", account);
-		model.addAttribute("payments", payments);
-		model.addAttribute("receives", receives);
-		return "userprofile";
+		return accountService.showUserAccount(principal, model);
 	}
 
 	@RequestMapping(value = "/block")

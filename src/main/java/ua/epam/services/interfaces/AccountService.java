@@ -1,9 +1,12 @@
 package ua.epam.services.interfaces;
 
+import java.security.Principal;
 import java.util.List;
 
-import ua.epam.controllers.exceptions.NotEnoughFundsException;
+import org.springframework.ui.Model;
+
 import ua.epam.domain.Account;
+import ua.epam.services.exceptions.NotEnoughFundsException;
 
 public interface AccountService {
 	Account getAccountById(Long accountId);
@@ -19,4 +22,6 @@ public interface AccountService {
 	Account getAccountByUsername(String name);
 
 	void refundAccount(Long cardId, Long accountId, double amountToRefund) throws NotEnoughFundsException;
+	
+	String showUserAccount(Principal principal, Model model);
 }

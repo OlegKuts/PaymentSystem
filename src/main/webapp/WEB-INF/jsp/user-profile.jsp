@@ -17,7 +17,8 @@
 			<li role="presentation"><a href="#profile"
 				aria-controls="profile" role="tab" data-toggle="tab">Receives</a></li>
 			<li role="presentation"><a href="#messages"
-				aria-controls="messages" role="tab" data-toggle="tab">Credit cards</a></li>
+				aria-controls="messages" role="tab" data-toggle="tab">Credit
+					cards</a></li>
 
 		</ul>
 
@@ -130,7 +131,7 @@
 				<td><c:if
 						test="${user.account.active eq true and principal.username eq user.username}">
 						<security:authorize access="!hasRole('ROLE_ADMIN')">
-							<a  href="<spring:url value="/account/block" />"
+							<a href="<spring:url value="/account/block" />"
 								class="btn btn-danger btn-sm triggerRemove"> block account </a>
 						</security:authorize>
 					</c:if> <c:if test="${user.account.active eq false }">
@@ -141,10 +142,18 @@
 				<td>Balance:</td>
 				<td>${user.account.balance}</td>
 
-				<td><c:if
+				<td class="text-warning"><c:if
 						test="${user.account.active eq true and principal.username eq user.username}">
-						<a href="<spring:url value="/account/refund" />"
-							class="btn btn-info btn-sm triggerRemove"> add funds </a>
+						<c:choose>
+							<c:when test="${hasAnyCard}">
+								<a href="<spring:url value="/account/refund" />"
+									class="btn btn-info btn-sm triggerRemove"> add funds </a>
+							</c:when>
+							<c:otherwise>
+								<c:out 
+									value="You need to have atleast one credit card to refund your account" />
+							</c:otherwise>
+						</c:choose>
 					</c:if>
 			</tr>
 			<tr>
