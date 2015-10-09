@@ -53,6 +53,6 @@ public class PaymentController {
 			model.addAttribute("exceptionMessage", e.getMessage());
 			return "makepayment";
 		}
-		return "redirect:/account";
+		return "redirect:/payments/makepayment?successful=true";
 	}
 }

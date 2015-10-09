@@ -73,7 +73,7 @@ public class AccountController {
 			model.addAttribute("exceptionMessage", e.getMessage());
 			return showRefundAccountBalance(model, principal);
 		}
-		return "redirect:/account";
+		return "redirect:/account/refund?successful=true";
 	}
 
 }

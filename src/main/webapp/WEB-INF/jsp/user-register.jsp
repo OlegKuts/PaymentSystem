@@ -34,7 +34,7 @@
 	<div class="form-group">
 		<label for="userInformation.email" class="col-sm-2 control-label">Email:</label>
 		<div class="col-sm-10">
-			<form:input path="userInformation.email" cssClass="form-control" />
+			<form:input path="userInformation.email" cssClass="form-control" type="email"/>
 			<form:errors path="userInformation.email" cssClass="text-danger"/>
 		</div>
 	</div>
