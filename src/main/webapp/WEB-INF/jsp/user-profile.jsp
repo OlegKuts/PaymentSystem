@@ -153,8 +153,8 @@
 						test="${user.account.active eq true and principal.username eq user.username}">
 						<c:choose>
 							<c:when test="${hasAnyCard}">
-								<a href="<spring:url value="/account/refund" />"
-									class="btn btn-info btn-sm triggerRemove"> add funds </a>
+								<a href="<spring:url value="/account/funds" />"
+									class="btn btn-info btn-sm triggerRemove"> manage funds </a>
 							</c:when>
 							<c:otherwise>
 								<c:out

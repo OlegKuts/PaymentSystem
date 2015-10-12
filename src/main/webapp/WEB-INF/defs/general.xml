@@ -38,9 +38,9 @@
 		<put-attribute name="current" value="login" />
 	</definition>
 
-	<definition name="addfunds" extends="common">
+	<definition name="managefunds" extends="common">
 		<put-attribute name="title" value="Payment Sysytem" />
-		<put-attribute name="body" value="/WEB-INF/jsp/add-funds.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/manage-funds.jsp" />
 		<put-attribute name="current" value="users" />
 	</definition>
 

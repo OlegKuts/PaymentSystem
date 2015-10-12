@@ -47,7 +47,7 @@ public class AccountController {
 		return "redirect:/account";
 	}
 
-	@RequestMapping(value = "/refund", method = RequestMethod.GET)
+	@RequestMapping(value = "/funds", method = RequestMethod.GET)
 	public String showRefundAccountBalance(Model model, Principal principal) {
 		Account account = accountService.getAccountByUsername(principal
 				.getName());
@@ -55,7 +55,7 @@ public class AccountController {
 		List<CreditCard> cards = creditCardService.findAllForAccount(accountId);
 		model.addAttribute("cards", cards);
 		model.addAttribute("accountId", accountId);
-		return "addfunds";
+		return "managefunds";
 	}
 
 	@RequestMapping(value = "/refund", method = RequestMethod.POST)
@@ -73,7 +73,25 @@ public class AccountController {
 			model.addAttribute("exceptionMessage", e.getMessage());
 			return showRefundAccountBalance(model, principal);
 		}
-		return "redirect:/account/refund?successful=true";
+		return "redirect:/account/funds?successful=true";
+	}
+
+	@RequestMapping(value = "/withdraw", method = RequestMethod.POST)
+	public String withdrawFromAccount(
+			@ModelAttribute("refundForm") @Valid RefundBalanceForm refundForm,
+			BindingResult bindingResult, Model model, Principal principal) {
+		if (bindingResult.hasErrors()) {
+			return showRefundAccountBalance(model, principal);
+		}
+		try {
+			accountService.withdrawFromAccount(refundForm.getCardId(),
+					refundForm.getAccountId(), refundForm.getAmount());
+		} catch (NotEnoughFundsException e) {
+			model.addAttribute("exception", e);
+			model.addAttribute("exceptionMessage", e.getMessage());
+			return showRefundAccountBalance(model, principal);
+		}
+		return "redirect:/account/funds?successful=true";
 	}
 
 }

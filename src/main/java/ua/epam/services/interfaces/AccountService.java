@@ -10,18 +10,22 @@ import ua.epam.services.exceptions.NotEnoughFundsException;
 
 public interface AccountService {
 	Account getAccountById(Long accountId);
-	
+
 	void activeAccount(Long accountId);
-	
+
 	void deactiveAccount(Long accountId);
-	
+
 	List<Account> getAll();
 
 	void update(Account account);
 
 	Account getAccountByUsername(String name);
 
-	void refundAccount(Long cardId, Long accountId, double amountToRefund) throws NotEnoughFundsException;
-	
+	void refundAccount(Long cardId, Long accountId, double amountToRefund)
+			throws NotEnoughFundsException;
+
 	String showUserAccount(Principal principal, Model model);
+
+	void withdrawFromAccount(Long cardId, Long accountId,
+			double amountToWithdraw) throws NotEnoughFundsException;
 }

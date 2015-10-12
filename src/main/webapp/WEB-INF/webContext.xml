@@ -26,15 +26,11 @@
 	</bean>
 	
 	
-   <!--  <bean id="simpleMappingExceptionResolver"
+    <bean id="simpleMappingExceptionResolver"
           class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">       
-        <property name="exceptionMappings">
-            <map>
-                <entry key="SQLException" value="databaseError"/>                
-            </map>
-        </property>
+ 
         <property name="defaultErrorView" value="error"/>
         <property name="exceptionAttribute" value="ex"/>
         
-    </bean> -->
+    </bean>
 </beans>

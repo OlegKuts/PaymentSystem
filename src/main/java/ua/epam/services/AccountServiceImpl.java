@@ -64,13 +64,10 @@ public class AccountServiceImpl implements AccountService {
 	public Account getAccountByUsername(String username) {
 		return accountRepository.findByUsername(username);
 	}
-	
-	
 
 	@Override
 	public void refundAccount(Long cardId, Long accountId, double amountToRefund)
 			throws NotEnoughFundsException {
-		// Account account = accountRepository.find(accountId);
 		CreditCard creditCard = creditCardRepository.find(cardId);
 		Account account = creditCard.getAccount();
 		double creditCardBalance = creditCard.getAmount();
@@ -83,14 +80,32 @@ public class AccountServiceImpl implements AccountService {
 		account.setBalance(account.getBalance() + amountToRefund);
 		accountRepository.update(account);
 	}
-	
+
+	@Override
+	public void withdrawFromAccount(Long cardId, Long accountId,
+			double amountToWithdraw) throws NotEnoughFundsException {
+		CreditCard creditCard = creditCardRepository.find(cardId);
+		Account account = creditCard.getAccount();
+		double accountBalance = account.getBalance();
+		if (accountBalance < amountToWithdraw) {
+			throw new NotEnoughFundsException(
+					"Not enough funds on account balance");
+		}
+		accountBalance -= amountToWithdraw;
+		creditCard.setAmount(creditCard.getAmount() + amountToWithdraw);
+		account.setBalance(accountBalance);
+		accountRepository.update(account);
+	}
+
 	@Override
 	public String showUserAccount(Principal principal, Model model) {
 		String username = principal.getName();
 		User user = userRepository.findByUsername(username);
 		Account account = user.getAccount();
-		List<Payment> payments = paymentRepository.findAllForPayerAccount(account.getId());
-		List<Payment> receives = paymentRepository.findAllForReceiverAccount(account.getId());
+		List<Payment> payments = paymentRepository
+				.findAllForPayerAccount(account.getId());
+		List<Payment> receives = paymentRepository
+				.findAllForReceiverAccount(account.getId());
 		boolean hasAnyCard = account.getCreditCards().size() != 0;
 		model.addAttribute("user", user);
 		model.addAttribute("account", account);
