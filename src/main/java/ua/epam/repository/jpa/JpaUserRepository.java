@@ -35,6 +35,14 @@ public class JpaUserRepository implements UserRepository {
 	}
 
 	@Override
+	public boolean isEmailUniq(String email) {
+		TypedQuery<User> query = em.createNamedQuery("User.findByEmail",
+				User.class).setParameter("email", email);
+		return query.getResultList().isEmpty();
+				
+	}
+
+	@Override
 	public List<User> findAll() {
 		TypedQuery<User> query = em
 				.createNamedQuery("User.findAll", User.class);
@@ -57,8 +65,8 @@ public class JpaUserRepository implements UserRepository {
 
 	@Override
 	public List<User> findAllWithUserRole() {
-		TypedQuery<User> query = em
-				.createNamedQuery("User.findAllUserRole", User.class);
+		TypedQuery<User> query = em.createNamedQuery("User.findAllUserRole",
+				User.class);
 		return query.getResultList();
 	}
 }

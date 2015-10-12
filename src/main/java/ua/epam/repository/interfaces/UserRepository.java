@@ -10,6 +10,8 @@ public interface UserRepository {
 	void update(User user);
 
 	User findByUsername(String username);
+	
+	boolean isEmailUniq(String email);
 
 	List<User> findAll();
 

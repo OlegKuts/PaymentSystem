@@ -9,7 +9,11 @@ import ua.epam.domain.CreditCard;
 public interface CreditCardService {
 
 	void registerNew(CreditCard creditCard, String name);
+	
+	void detach(Long casrdId);
+	
 	List<CreditCard> findAllForAccount(Long accountId);
 	
 	List<String> getErrorMessages(BindingResult bindingResult);
+	
 }

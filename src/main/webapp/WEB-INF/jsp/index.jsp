@@ -1,3 +1,3 @@
 <%@ include file="../layout/taglib.jsp" %>
 
-Wellcome Page
+Wellcome to Payment System

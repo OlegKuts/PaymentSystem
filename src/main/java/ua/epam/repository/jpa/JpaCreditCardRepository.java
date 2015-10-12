@@ -28,6 +28,11 @@ public class JpaCreditCardRepository implements CreditCardRepository {
 	public void update(CreditCard creditCard) {
 		em.merge(creditCard);
 	}
+	
+	@Override
+	public void delete(CreditCard creditCard) {
+		em.remove(creditCard);	
+	}
 
 	@Override
 	public CreditCard find(Long id) {

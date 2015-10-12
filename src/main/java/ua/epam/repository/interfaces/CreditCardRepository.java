@@ -12,11 +12,12 @@ public interface CreditCardRepository {
 	CreditCard find(Long id);
 
 	List<CreditCard> findAll();
-	
+
 	boolean isCardNumberUniq(String cardNumber);
-	
+
 	Long getAmountForAccount(Long accountId);
-	
+
 	List<CreditCard> findAllForAccount(Long accountId);
-	
+
+	void delete(CreditCard creditCard);
 }

@@ -22,15 +22,16 @@ import ua.epam.annotations.UniqueUsername;
 		@NamedQuery(name = "User.findAllUserRole", query = "SELECT u FROM User u WHERE"
 				+ " u.id  IN(SELECT  a.user.id FROM UserAuthorization a WHERE a.role = 'ROLE_USER')"
 				+ " and u.id  NOT IN(SELECT  a.user.id FROM UserAuthorization a WHERE a.role = 'ROLE_ADMIN')"),
-		@NamedQuery(name = "User.findByUsername", query = "SELECT  u FROM User u WHERE u.username = :username") })
+		@NamedQuery(name = "User.findByUsername", query = "SELECT  u FROM User u WHERE u.username = :username"),
+		@NamedQuery(name = "User.findByEmail", query = "SELECT  u FROM User u WHERE u.userInformation.email = :email") })
 public class User extends BaseEntity {
 	@Size(min = 4, max = 20, message = "Username must contain {min} to {max} characters")
 	@UniqueUsername(message = "Username already exists")
 	private String username;
-	
+
 	@Size(min = 4, message = "Password  must contain minimum {min}  characters")
 	private String password;
-	
+
 	private Boolean enabled;
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private UserInformation userInformation;

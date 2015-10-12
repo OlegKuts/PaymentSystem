@@ -11,6 +11,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import ua.epam.annotations.UniqEmail;
+
 @Entity
 @Table(name = "user_information")
 public class UserInformation extends BaseEntity {
@@ -26,6 +28,7 @@ public class UserInformation extends BaseEntity {
 
 	@NotEmpty(message = "Email can't be empty")
 	@Email(message = "Invaild email")
+	@UniqEmail(message = "Email have to be uniq")
 	private String email;
 
 	@OneToOne

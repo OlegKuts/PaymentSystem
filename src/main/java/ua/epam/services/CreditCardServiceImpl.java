@@ -34,6 +34,12 @@ public class CreditCardServiceImpl implements CreditCardService {
 	}
 
 	@Override
+	public void detach(Long cardId) {
+		CreditCard card = creditCardRepository.find(cardId);
+		creditCardRepository.delete(card);
+	}
+
+	@Override
 	public List<CreditCard> findAllForAccount(Long accountId) {
 		return creditCardRepository.findAllForAccount(accountId);
 	}
