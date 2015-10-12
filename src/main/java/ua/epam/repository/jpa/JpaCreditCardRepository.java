@@ -28,10 +28,11 @@ public class JpaCreditCardRepository implements CreditCardRepository {
 	public void update(CreditCard creditCard) {
 		em.merge(creditCard);
 	}
-	
+
 	@Override
+	@Transactional
 	public void delete(CreditCard creditCard) {
-		em.remove(creditCard);	
+		em.remove(em.contains(creditCard) ? creditCard : em.merge(creditCard));
 	}
 
 	@Override
@@ -49,8 +50,8 @@ public class JpaCreditCardRepository implements CreditCardRepository {
 	@Override
 	public boolean isCardNumberUniq(String cardNumber) {
 		TypedQuery<CreditCard> query = em.createNamedQuery(
-				"CreditCard.findByCardNumber", CreditCard.class)
-				.setParameter("cardNumber", cardNumber);
+				"CreditCard.findByCardNumber", CreditCard.class).setParameter(
+				"cardNumber", cardNumber);
 		List<CreditCard> creditCards = query.getResultList();
 		return creditCards.isEmpty();
 	}
@@ -58,14 +59,16 @@ public class JpaCreditCardRepository implements CreditCardRepository {
 	@Override
 	public Long getAmountForAccount(Long accountId) {
 		TypedQuery<Long> query = em.createNamedQuery(
-				"CreditCard.getAmountForAccount", Long.class).setParameter("accountId", accountId);
+				"CreditCard.getAmountForAccount", Long.class).setParameter(
+				"accountId", accountId);
 		return query.getSingleResult();
 	}
 
 	@Override
 	public List<CreditCard> findAllForAccount(Long accountId) {
 		TypedQuery<CreditCard> query = em.createNamedQuery(
-				"CreditCard.findAllForAccount", CreditCard.class).setParameter("accountId", accountId);
+				"CreditCard.findAllForAccount", CreditCard.class).setParameter(
+				"accountId", accountId);
 		return query.getResultList();
 	}
 

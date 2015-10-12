@@ -59,7 +59,7 @@
 			<div role="tabpanel" class="tab-pane" id="profile">
 				<table id="table1"
 					class="table table-bordered table-hover table-striped">
-					<caption>User's payments</caption>
+					<caption>User's receives</caption>
 					<thead>
 						<tr>
 							<th>Amount</th>
@@ -95,6 +95,7 @@
 						<tr>
 							<th>Balance</th>
 							<th>Number</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -102,6 +103,12 @@
 							<tr>
 								<td><c:out value="${card.amount}" /></td>
 								<td align="center"><c:out value="${card.cardNumber}" /></td>
+								<td><form action="creditcard/detach" method="post">
+										<input type="hidden" name="cardId" value="${card.id}">
+										<input type="hidden" name="accountId" value="${user.account.id}">
+										<input type="submit" value="Detach"
+											class="btn btn-danger btn-sm">
+									</form></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -150,7 +157,7 @@
 									class="btn btn-info btn-sm triggerRemove"> add funds </a>
 							</c:when>
 							<c:otherwise>
-								<c:out 
+								<c:out
 									value="You need to have atleast one credit card to refund your account" />
 							</c:otherwise>
 						</c:choose>

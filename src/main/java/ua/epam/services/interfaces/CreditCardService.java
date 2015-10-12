@@ -10,7 +10,7 @@ public interface CreditCardService {
 
 	void registerNew(CreditCard creditCard, String name);
 	
-	void detach(Long casrdId);
+	void detach(Long cardId, Long accountId);
 	
 	List<CreditCard> findAllForAccount(Long accountId);
 	

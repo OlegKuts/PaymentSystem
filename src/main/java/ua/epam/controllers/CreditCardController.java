@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.epam.domain.CreditCard;
 import ua.epam.services.interfaces.AccountService;
@@ -35,25 +36,30 @@ public class CreditCardController {
 			@ModelAttribute("newCard") @Valid CreditCard creditCard,
 			BindingResult bindingResult, Principal principal, Model model) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("errorMessages", creditCardService.getErrorMessages(bindingResult));
+			model.addAttribute("errorMessages",
+					creditCardService.getErrorMessages(bindingResult));
 			return accountService.showUserAccount(principal, model);
 		}
 		creditCardService.registerNew(creditCard, principal.getName());
 		return "redirect:/account";
 	}
 
-/*	private String showUserAccount(Principal principal, Model model) {
-		String username = principal.getName();
-		User user = userService.findByUsername(username);
-		Account account = user.getAccount();
-		List<Payment> payments = paymentService
-				.getAllPaymentsForPayerAccount(account.getId());
-		List<Payment> receives = paymentService
-				.getAllReceivesForPayerAccount(account.getId());
-		model.addAttribute("user", user);
-		model.addAttribute("account", account);
-		model.addAttribute("payments", payments);
-		model.addAttribute("receives", receives);
-		return "userprofile";
-	}*/
+	@RequestMapping(value = "/detach", method = RequestMethod.POST)
+	public String detachCard(@RequestParam("cardId") Long cardId,
+			@RequestParam("accountId") Long accountId) {
+		creditCardService.detach(cardId, accountId);
+		return "redirect:/account";
+	}
+
+	/*
+	 * private String showUserAccount(Principal principal, Model model) { String
+	 * username = principal.getName(); User user =
+	 * userService.findByUsername(username); Account account =
+	 * user.getAccount(); List<Payment> payments = paymentService
+	 * .getAllPaymentsForPayerAccount(account.getId()); List<Payment> receives =
+	 * paymentService .getAllReceivesForPayerAccount(account.getId());
+	 * model.addAttribute("user", user); model.addAttribute("account", account);
+	 * model.addAttribute("payments", payments); model.addAttribute("receives",
+	 * receives); return "userprofile"; }
+	 */
 }

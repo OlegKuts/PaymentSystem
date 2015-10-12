@@ -11,6 +11,7 @@ import org.springframework.validation.ObjectError;
 import ua.epam.domain.Account;
 import ua.epam.domain.CreditCard;
 import ua.epam.domain.User;
+import ua.epam.repository.interfaces.AccountRepository;
 import ua.epam.repository.interfaces.CreditCardRepository;
 import ua.epam.repository.interfaces.UserRepository;
 import ua.epam.services.interfaces.CreditCardService;
@@ -19,9 +20,10 @@ import ua.epam.services.interfaces.CreditCardService;
 public class CreditCardServiceImpl implements CreditCardService {
 	@Autowired
 	CreditCardRepository creditCardRepository;
-
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	AccountRepository accountRepository;
 
 	@Override
 	public void registerNew(CreditCard creditCard, String username) {
@@ -34,8 +36,13 @@ public class CreditCardServiceImpl implements CreditCardService {
 	}
 
 	@Override
-	public void detach(Long cardId) {
+	public void detach(Long cardId, Long accountId) {
 		CreditCard card = creditCardRepository.find(cardId);
+		Account account = accountRepository.find(accountId);
+		account.getCreditCards().remove(card);
+		card.setAccount(null);
+		accountRepository.update(account);
+		creditCardRepository.update(card);
 		creditCardRepository.delete(card);
 	}
 
