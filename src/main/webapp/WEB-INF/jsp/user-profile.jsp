@@ -1,4 +1,5 @@
 <%@ include file="../layout/taglib.jsp"%>
+
 <c:if test="${errorMessages != null}">
 	<div class="alert alert-danger">
 		<c:forEach items="${errorMessages}" var="message">
@@ -105,9 +106,9 @@
 								<td align="center"><c:out value="${card.cardNumber}" /></td>
 								<td><form action="creditcard/detach" method="post">
 										<input type="hidden" name="cardId" value="${card.id}">
-										<input type="hidden" name="accountId" value="${user.account.id}">
-										<input type="submit" value="Detach"
-											class="btn btn-danger btn-sm">
+										<input type="hidden" name="accountId"
+											value="${user.account.id}"> <input type="submit"
+											value="Detach" class="btn btn-danger btn-sm">
 									</form></td>
 							</tr>
 						</c:forEach>
