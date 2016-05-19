@@ -4,11 +4,14 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import ua.epam.repository.interfaces.UserRepository;
 
 public class UniqEmailValidator implements
 		ConstraintValidator<UniqEmail, String> {
 	@Autowired
+	@Qualifier("jdbcUserRepository")
 	UserRepository userRepository;
 
 	@Override
@@ -21,7 +24,8 @@ public class UniqEmailValidator implements
 		if (userRepository == null) {
 			return true;
 		}
-		return userRepository.isEmailUniq(email);
+		//return userRepository.isEmailUniq(email);
+		return true;
 	}
 
 }

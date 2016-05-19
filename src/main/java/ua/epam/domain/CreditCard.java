@@ -37,6 +37,13 @@ public class CreditCard extends BaseEntity {
 		super();
 	}
 
+	public CreditCard(String cvv2, String cardNumber, Double amount) {
+		super();
+		this.cvv2 = cvv2;
+		this.cardNumber = cardNumber;
+		this.amount = amount;
+	}
+
 	public String getCvv2() {
 		return cvv2;
 	}

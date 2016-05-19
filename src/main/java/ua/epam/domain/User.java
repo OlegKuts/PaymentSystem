@@ -46,6 +46,13 @@ public class User extends BaseEntity {
 		super();
 	}
 
+	public User(String username, String password, Boolean enabled) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+	}
+
 	public String getUsername() {
 		return username;
 	}

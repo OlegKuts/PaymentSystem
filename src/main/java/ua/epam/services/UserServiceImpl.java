@@ -3,8 +3,10 @@ package ua.epam.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.epam.domain.Account;
 import ua.epam.domain.Role;
@@ -18,10 +20,12 @@ import ua.epam.services.interfaces.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
+	@Qualifier("jdbcUserRepository")
 	UserRepository userRepository;
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	@Override
+	@Transactional
 	public void registerUser(UserForm userForm) {
 		User user = new User();
 		String encodedPassword = encoder.encode(userForm.getUser()

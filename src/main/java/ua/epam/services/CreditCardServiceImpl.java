@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -21,6 +22,7 @@ public class CreditCardServiceImpl implements CreditCardService {
 	@Autowired
 	CreditCardRepository creditCardRepository;
 	@Autowired
+	@Qualifier("jdbcUserRepository")
 	UserRepository userRepository;
 	@Autowired
 	AccountRepository accountRepository;
