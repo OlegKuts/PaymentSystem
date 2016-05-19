@@ -138,49 +138,69 @@ public class JdbcUserRepository implements UserRepository {
 				+ "ON user_authentication.id = user_information.user_id "
 				+ "WHERE user_authentication.username = ?;";
 		String creditCardsQuery = "SELECT * FROM credit_card WHERE account_id = ?;";
-		Connection conn = null;
+		ResultSet rs = null;
 		User user = null;
 		Account account = null;
 		UserInformation userInformation = null;
 		Long userId, accountId = null;
 		Set<CreditCard> cards = new HashSet<CreditCard>();
-		try {
-
-			conn = dataSource.getConnection();
-			PreparedStatement statement = conn.prepareStatement(userQuery);
-			statement.setString(1, username);
-			ResultSet rs = statement.executeQuery();
-			while (rs.next()) {
-				userId = rs.getLong("id");
-				accountId = rs.getLong("account_id");
-				user = new User(rs.getString("username"),
-						rs.getString("password"), rs.getBoolean("enabled"));
-				account = new Account(rs.getDouble("balance"),
-						rs.getBoolean("is_active"), user);
-				userInformation = new UserInformation(
-						rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("email"), user);
-				user.setId(userId);
-				account.setId(accountId);
-				user.setAccount(account);
-				user.setUserInformation(userInformation);
+		try (Connection conn = dataSource.getConnection()) {
+			try (PreparedStatement userStatement = conn
+					.prepareStatement(userQuery);) {
+				userStatement.setString(1, username);
+				rs = userStatement.executeQuery();
+				while (rs.next()) {
+					userId = rs.getLong("id");
+					accountId = rs.getLong("account_id");
+					user = new User(rs.getString("username"),
+							rs.getString("password"), rs.getBoolean("enabled"));
+					account = new Account(rs.getDouble("balance"),
+							rs.getBoolean("is_active"), user);
+					userInformation = new UserInformation(
+							rs.getString("firstname"),
+							rs.getString("lastname"), rs.getString("email"),
+							user);
+					user.setId(userId);
+					account.setId(accountId);
+					user.setAccount(account);
+					user.setUserInformation(userInformation);
+				}
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			try (PreparedStatement cardStatement = conn
+					.prepareStatement(creditCardsQuery);) {
+				cardStatement.setLong(1, accountId);
+				rs = cardStatement.executeQuery();
+				while (rs.next()) {
+					CreditCard card = new CreditCard(rs.getString("cvv2"),
+							rs.getString("card_number"), rs.getDouble("amount"));
+					card.setId(rs.getLong("id"));
+					cards.add(card);
+				}
+				account.setCreditCards(cards);
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 
-			statement = conn.prepareStatement(creditCardsQuery);
-			statement.setLong(1, accountId);
-			rs = statement.executeQuery();
-			while (rs.next()) {
-				CreditCard card = new CreditCard(rs.getString("cvv2"),
-						rs.getString("card_number"), rs.getDouble("amount"));
-				card.setId(rs.getLong("id"));
-				cards.add(card);
-			}
-			account.setCreditCards(cards);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return user;
 	}
 
