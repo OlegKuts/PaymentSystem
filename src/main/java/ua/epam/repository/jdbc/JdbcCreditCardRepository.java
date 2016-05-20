@@ -41,7 +41,7 @@ public class JdbcCreditCardRepository implements CreditCardRepository {
 
 	@Override
 	public void update(CreditCard creditCard) {
-		//No realization needed for JDBC
+		// No realization needed for JDBC
 	}
 
 	@Override
@@ -73,8 +73,25 @@ public class JdbcCreditCardRepository implements CreditCardRepository {
 
 	@Override
 	public boolean isCardNumberUniq(String cardNumber) {
-		// TODO Auto-generated method stub
-		return true;
+		String query = "SELECT id FROM credit_card WHERE card_number=?";
+		ResultSet rs = null;
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement statement = conn.prepareStatement(query)) {
+				statement.setString(1, cardNumber);
+				rs = statement.executeQuery();
+				return !rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override

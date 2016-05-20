@@ -24,8 +24,7 @@ public class UniqEmailValidator implements
 		if (userRepository == null) {
 			return true;
 		}
-		//return userRepository.isEmailUniq(email);
-		return true;
+		return userRepository.isEmailUniq(email);
 	}
 
 }

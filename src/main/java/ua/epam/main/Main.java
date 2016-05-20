@@ -24,18 +24,12 @@ public class Main {
 		ConfigurableApplicationContext appContext = new ClassPathXmlApplicationContext(
 				new String[] { "appContext.xml" }, repositoryContext);
 
-		PaymentRepository repository = (PaymentRepository) repositoryContext
-				.getBean("jdbcPaymentRepository");
-		/*List<Payment> list = repository.findAllForReceiverAccount(1L);
-		for (Payment p : list) {
-			System.out.println(p.getReceiverAccount().getId());
-		}*/
-		Account account = new Account();
-		Account account2 = new Account();
-		account.setId(1L);
-		account2.setId(15L);
-		Payment p = new Payment(333D, account, account2);
-		repository.save(p);
+		UserRepository repository = (UserRepository) repositoryContext
+				.getBean("jdbcUserRepository");
+		CreditCardRepository repository2 = (CreditCardRepository) repositoryContext
+				.getBean("jdbcCreditCardRepository");
+		System.out.println(repository.isUsernameUniq("user3"));
+		System.out.println(repository2.isCardNumberUniq("123456789222"));
 
 	}
 }

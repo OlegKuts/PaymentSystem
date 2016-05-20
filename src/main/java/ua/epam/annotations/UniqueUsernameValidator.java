@@ -27,8 +27,8 @@ public class UniqueUsernameValidator implements
 		if (userRepository == null) {
 			return true;
 		}
-		//return userRepository.isUsernameUniq(username);
-		return true;
+		return userRepository.isUsernameUniq(username);
+
 	}
 
 }

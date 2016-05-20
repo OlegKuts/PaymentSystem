@@ -196,7 +196,47 @@ public class JdbcUserRepository implements UserRepository {
 
 	@Override
 	public boolean isEmailUniq(String email) {
-		// TODO Auto-generated method stub
+		String query = "SELECT id FROM user_information WHERE email = ?";
+		ResultSet rs = null;
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement statement = conn.prepareStatement(query)) {
+			statement.setString(1, email);
+			rs = statement.executeQuery();
+			return !rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isUsernameUniq(String username) {
+		String query = "SELECT id FROM user_authentication WHERE username = ?;";
+		ResultSet rs = null;
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement statement = conn.prepareStatement(query)) {
+			statement.setString(1, username);
+			rs = statement.executeQuery();
+			return !rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return false;
 	}
 
@@ -270,12 +310,6 @@ public class JdbcUserRepository implements UserRepository {
 			e.printStackTrace();
 		}
 		return user;
-	}
-
-	@Override
-	public boolean isUsernameUniq(String username) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
