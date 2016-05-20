@@ -54,7 +54,7 @@ public class Payment extends BaseEntity {
 
 	@PrePersist
 	protected void onCreate() {
-		paymentDate  = new Date();
+		paymentDate = new Date();
 	}
 
 	public Double getAmount() {

@@ -10,17 +10,7 @@ import ua.epam.domain.Payment;
 public interface PaymentRepository {
 	void save(Payment payment);
 
-	void update(Payment payment);
-
-	Payment find(Long id);
-
-	List<Payment> findAll();
-
-	Long getAmountForPayerAccount(Long accountId);
-
 	List<Payment> findAllForPayerAccount(Long accountId);
-
-	Long getAmountForReceiverAccount(Long accountId);
 
 	List<Payment> findAllForReceiverAccount(Long accountId);
 }

@@ -25,45 +25,11 @@ public class JpaPaymentRepository implements PaymentRepository {
 	}
 
 	@Override
-	@Transactional
-	public void update(Payment payment) {
-		em.merge(payment);
-	}
-
-	@Override
-	public Payment find(Long id) {
-		return em.find(Payment.class, id);
-	}
-
-	@Override
-	public List<Payment> findAll() {
-		TypedQuery<Payment> query = em.createNamedQuery("Payment.findAll",
-				Payment.class);
-		return query.getResultList();
-	}
-
-	@Override
-	public Long getAmountForPayerAccount(Long accountId) {
-		TypedQuery<Long> query = em.createNamedQuery(
-				"Payment.getAmountForPayerAccount", Long.class).setParameter(
-				"accountId", accountId);
-		return query.getSingleResult();
-	}
-
-	@Override
 	public List<Payment> findAllForPayerAccount(Long accountId) {
 		TypedQuery<Payment> query = em.createNamedQuery(
 				"Payment.findAllForPayerAccount", Payment.class).setParameter(
 				"accountId", accountId);
 		return query.getResultList();
-	}
-
-	@Override
-	public Long getAmountForReceiverAccount(Long accountId) {
-		TypedQuery<Long> query = em.createNamedQuery(
-				"Payment.getAmountForReceiverAccount", Long.class)
-				.setParameter("accountId", accountId);
-		return query.getSingleResult();
 	}
 
 	@Override

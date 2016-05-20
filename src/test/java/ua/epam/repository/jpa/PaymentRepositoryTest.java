@@ -20,55 +20,6 @@ public class PaymentRepositoryTest extends RepositoryTestTemplate {
 	AccountRepository accountRepository;
 
 	@Test
-	public void insertAndFindPaymentTest() {
-		Payment payment = new Payment();
-		Double amount = 42.0;
-		payment.setAmount(amount);
-		paymentRepository.save(payment);
-
-		Payment paymentdb = paymentRepository.find(payment.getId());
-
-		assertNotNull(paymentdb);
-		assertEquals(payment, paymentdb);
-		assertEquals(amount, paymentdb.getAmount());
-	}
-
-	@Test
-	public void findAllTest() {
-		Payment payment = new Payment();
-		Payment payment2 = new Payment();
-		paymentRepository.save(payment);
-		paymentRepository.save(payment2);
-
-		List<Payment> payments = paymentRepository.findAll();
-
-		assertNotNull(payments);
-		assertEquals(2, payments.size());
-		assertTrue(payments.contains(payment));
-		assertTrue(payments.contains(payment2));
-	}
-
-	@Test
-	public void getAmountForPayerAccountTest() {
-		Account account = new Account();
-		Payment payment = new Payment();
-		Payment payment2 = new Payment();
-		Long expectedAmount = 2L;
-		account.getPayed().add(payment);
-		account.getPayed().add(payment2);
-		payment.setPayerAccount(account);
-		payment2.setPayerAccount(account);
-		accountRepository.save(account);
-
-		Long ammount = paymentRepository.getAmountForPayerAccount(account
-				.getId());
-
-		assertNotNull(ammount);
-		assertEquals(expectedAmount, ammount);
-
-	}
-
-	@Test
 	public void findAllForPayerAccountTest() {
 		Account account = new Account();
 		Payment payment = new Payment();
@@ -88,25 +39,6 @@ public class PaymentRepositoryTest extends RepositoryTestTemplate {
 		assertEquals(payment, payments.get(0));
 	}
 
-	@Test
-	public void getAmountForReceiverAccountTest() {
-		Account account = new Account();
-		Payment payment = new Payment();
-		Payment payment2 = new Payment();
-		Long expectedAmount = 2L;
-		account.getReceived().add(payment);
-		account.getReceived().add(payment2);
-		payment.setReceiverAccount(account);
-		payment2.setReceiverAccount(account);
-		accountRepository.save(account);
-
-		Long ammount = paymentRepository.getAmountForReceiverAccount(account
-				.getId());
-
-		assertNotNull(ammount);
-		assertEquals(expectedAmount, ammount);
-	}
-	
 	@Test
 	public void findAllForReceiverAccountTest() {
 		Account account = new Account();

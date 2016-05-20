@@ -35,7 +35,6 @@ public class JdbcCreditCardRepository implements CreditCardRepository {
 			statement.setLong(4, creditCard.getAccount().getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

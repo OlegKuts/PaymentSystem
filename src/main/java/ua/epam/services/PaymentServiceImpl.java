@@ -17,16 +17,11 @@ import ua.epam.services.interfaces.PaymentService;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 	@Autowired
+	@Qualifier("jdbcPaymentRepository")
 	private PaymentRepository paymentRepository;
 	@Autowired
 	@Qualifier("jdbcAccountRepository")
 	private AccountRepository accountRepository;
-
-	@Override
-	public Payment getPaymnetById(Long paymentId) {
-		Payment payment = paymentRepository.find(paymentId);
-		return payment;
-	}
 
 	@Override
 	public List<Payment> getAllPaymentsForPayerAccount(Long accountId) {
@@ -49,8 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
 			throw new NotEnoughFundsException("Not enough funds on account");
 		}
 		if (payerAccountId == receiverAccountId) {
-			throw new SameAccountException(
-					"You cannot choose your own account");
+			throw new SameAccountException("You cannot choose your own account");
 		}
 		Payment payment = new Payment(amount, payerAccount, receiverAccount);
 		payerAccount.setBalance(payerAccountBalance - amount);

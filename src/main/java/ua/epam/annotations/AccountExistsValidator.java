@@ -4,12 +4,14 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import ua.epam.repository.interfaces.AccountRepository;
 
 public class AccountExistsValidator implements
 		ConstraintValidator<AccountExists, Long> {
 	@Autowired
+	@Qualifier("jdbcAccountRepository")
 	AccountRepository accountRepository;
 
 	@Override

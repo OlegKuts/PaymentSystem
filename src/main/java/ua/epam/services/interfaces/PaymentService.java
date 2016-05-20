@@ -7,12 +7,12 @@ import ua.epam.services.exceptions.NotEnoughFundsException;
 import ua.epam.services.exceptions.SameAccountException;
 
 public interface PaymentService {
-	Payment getPaymnetById(Long paymentId);
 
 	List<Payment> getAllPaymentsForPayerAccount(Long accountId);
-	
+
 	List<Payment> getAllReceivesForPayerAccount(Long accountId);
 
-	void makePayment(Long payerAccountId, Long receiverAccountId, double amount) throws NotEnoughFundsException, SameAccountException;
+	void makePayment(Long payerAccountId, Long receiverAccountId, double amount)
+			throws NotEnoughFundsException, SameAccountException;
 
 }

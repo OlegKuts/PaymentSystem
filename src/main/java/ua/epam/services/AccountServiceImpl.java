@@ -31,6 +31,7 @@ public class AccountServiceImpl implements AccountService {
 	@Qualifier("jdbcUserRepository")
 	UserRepository userRepository;
 	@Autowired
+	@Qualifier("jdbcPaymentRepository")
 	PaymentRepository paymentRepository;
 
 	@Override
