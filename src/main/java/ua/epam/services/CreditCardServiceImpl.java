@@ -20,6 +20,7 @@ import ua.epam.services.interfaces.CreditCardService;
 @Service
 public class CreditCardServiceImpl implements CreditCardService {
 	@Autowired
+	@Qualifier("jdbcCreditCardRepository")
 	CreditCardRepository creditCardRepository;
 	@Autowired
 	@Qualifier("jdbcUserRepository")

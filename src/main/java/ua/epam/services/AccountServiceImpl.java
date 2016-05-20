@@ -25,6 +25,7 @@ public class AccountServiceImpl implements AccountService {
 	@Qualifier("jdbcAccountRepository")
 	AccountRepository accountRepository;
 	@Autowired
+	@Qualifier("jdbcCreditCardRepository")
 	CreditCardRepository creditCardRepository;
 	@Autowired
 	@Qualifier("jdbcUserRepository")

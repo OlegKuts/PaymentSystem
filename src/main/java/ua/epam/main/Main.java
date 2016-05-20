@@ -3,7 +3,9 @@ package ua.epam.main;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import ua.epam.domain.CreditCard;
 import ua.epam.repository.interfaces.AccountRepository;
+import ua.epam.repository.interfaces.CreditCardRepository;
 import ua.epam.repository.interfaces.UserRepository;
 import ua.epam.repository.jdbc.JdbcUserRepository;
 
@@ -18,8 +20,11 @@ public class Main {
 		ConfigurableApplicationContext appContext = new ClassPathXmlApplicationContext(
 				new String[] { "appContext.xml" }, repositoryContext);
 		
-		AccountRepository repository = (AccountRepository) repositoryContext.getBean("jdbcAccountRepository");
-		System.out.println(repository.findByUsername("user3").getId());
+		CreditCardRepository repository = (CreditCardRepository) repositoryContext.getBean("jdbcCreditCardRepository");
+		CreditCard c = new CreditCard();
+		c.setId(5L);
+		System.out.println();
+		repository.delete(c);
 
 	}
 }

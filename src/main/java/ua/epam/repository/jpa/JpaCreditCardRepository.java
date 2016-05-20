@@ -41,27 +41,12 @@ public class JpaCreditCardRepository implements CreditCardRepository {
 	}
 
 	@Override
-	public List<CreditCard> findAll() {
-		TypedQuery<CreditCard> query = em.createNamedQuery(
-				"CreditCard.findAll", CreditCard.class);
-		return query.getResultList();
-	}
-
-	@Override
 	public boolean isCardNumberUniq(String cardNumber) {
 		TypedQuery<CreditCard> query = em.createNamedQuery(
 				"CreditCard.findByCardNumber", CreditCard.class).setParameter(
 				"cardNumber", cardNumber);
 		List<CreditCard> creditCards = query.getResultList();
 		return creditCards.isEmpty();
-	}
-
-	@Override
-	public Long getAmountForAccount(Long accountId) {
-		TypedQuery<Long> query = em.createNamedQuery(
-				"CreditCard.getAmountForAccount", Long.class).setParameter(
-				"accountId", accountId);
-		return query.getSingleResult();
 	}
 
 	@Override

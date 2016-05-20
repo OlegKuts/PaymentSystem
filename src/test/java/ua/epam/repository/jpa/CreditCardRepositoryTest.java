@@ -54,21 +54,6 @@ public class CreditCardRepositoryTest extends RepositoryTestTemplate {
 	}
 
 	@Test
-	public void findAllTest() {
-		CreditCard creditCard = new CreditCard();
-		CreditCard creditCard2 = new CreditCard();
-		creditCardRepository.save(creditCard);
-		creditCardRepository.save(creditCard2);
-
-		List<CreditCard> cards = creditCardRepository.findAll();
-
-		assertNotNull(cards);
-		assertEquals(2, cards.size());
-		assertEquals(creditCard, cards.get(0));
-
-	}
-
-	@Test
 	public void isCardNumberUniqTest() {
 		CreditCard creditCard = new CreditCard();
 		String notUniqCardNumber = "123456789123";
@@ -85,32 +70,6 @@ public class CreditCardRepositoryTest extends RepositoryTestTemplate {
 	}
 
 	@Test
-	public void getAmountForAccount() {
-		Account account = new Account();
-		Set<CreditCard> cards = account.getCreditCards();
-		CreditCard creditCard = new CreditCard();
-		CreditCard creditCard2 = new CreditCard();
-		String cardNumber = "123456789123";
-		String cardNumber2 = "321123456789";
-		creditCard.setCardNumber(cardNumber);
-		creditCard2.setCardNumber(cardNumber2);
-		creditCard.setAccount(account);
-		creditCard2.setAccount(account);
-		cards.add(creditCard);
-		cards.add(creditCard2);
-
-		accountRepository.save(account);
-		Account accountdb = accountRepository.find(account.getId());
-		Long size = creditCardRepository.getAmountForAccount(account.getId());
-		Long expectedSize = 2L;
-
-		assertNotNull(accountdb.getCreditCards());
-		assertFalse(accountdb.getCreditCards().isEmpty());
-		assertEquals(expectedSize, size);
-
-	}
-
-	@Test
 	public void findAllForAccountTest() {
 		Account account = new Account();
 		Set<CreditCard> cards = account.getCreditCards();
@@ -124,11 +83,12 @@ public class CreditCardRepositoryTest extends RepositoryTestTemplate {
 		creditCard2.setAccount(account);
 		cards.add(creditCard);
 		cards.add(creditCard2);
-		
+
 		accountRepository.save(account);
 		Account accountdb = accountRepository.find(account.getId());
-		List<CreditCard> cardsdb = creditCardRepository.findAllForAccount(accountdb.getId());
-		
+		List<CreditCard> cardsdb = creditCardRepository
+				.findAllForAccount(accountdb.getId());
+
 		assertNotNull(accountdb);
 		assertEquals(2, cardsdb.size());
 		assertTrue(cardsdb.contains(creditCard));
