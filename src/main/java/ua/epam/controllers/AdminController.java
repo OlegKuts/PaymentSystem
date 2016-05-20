@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ua.epam.domain.Account;
-import ua.epam.domain.Payment;
 import ua.epam.domain.User;
 import ua.epam.services.interfaces.AccountService;
 import ua.epam.services.interfaces.PaymentService;
@@ -48,20 +46,4 @@ public class AdminController {
 		return "redirect:/admin/users.html";
 	}
 
-	@RequestMapping("/users/{userid}")
-	public String showUserAccountByID(@PathVariable("userid") Long userId,
-			Model model) {
-		User user = userService.find(userId);
-		Account account = user.getAccount();
-		List<Payment> payers = paymentService
-				.getAllPaymentsForPayerAccount(account.getId());
-		model.addAttribute(user);
-		model.addAttribute(account);
-		model.addAttribute("payers", payers);
-		/*
-		 * need this for classic layout to change tiles 'current' param
-		 */
-		model.addAttribute("currentLabel", "users");
-		return "userprofile";
-	}
 }

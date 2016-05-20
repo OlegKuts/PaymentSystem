@@ -1,7 +1,6 @@
 package ua.epam.services.interfaces;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.ui.Model;
 
@@ -14,8 +13,6 @@ public interface AccountService {
 	void activeAccount(Long accountId);
 
 	void deactiveAccount(Long accountId);
-
-	List<Account> getAll();
 
 	void update(Account account);
 

@@ -45,15 +45,7 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(user);
 	}
 
-	@Override
-	public User getUserByName(String username) {
-		return userRepository.findByUsername(username);
-	}
-
-	@Override
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
+	
 
 	@Override
 	public User find(Long userId) {

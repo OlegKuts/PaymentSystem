@@ -39,20 +39,7 @@ public class JpaUserRepository implements UserRepository {
 		TypedQuery<User> query = em.createNamedQuery("User.findByEmail",
 				User.class).setParameter("email", email);
 		return query.getResultList().isEmpty();
-				
-	}
 
-	@Override
-	public List<User> findAll() {
-		TypedQuery<User> query = em
-				.createNamedQuery("User.findAll", User.class);
-		return query.getResultList();
-	}
-
-	@Override
-	@Transactional
-	public void update(User user) {
-		em.merge(user);
 	}
 
 	@Override

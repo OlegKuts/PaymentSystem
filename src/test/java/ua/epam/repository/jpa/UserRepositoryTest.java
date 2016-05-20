@@ -33,38 +33,6 @@ public class UserRepositoryTest extends RepositoryTestTemplate {
 	}
 
 	@Test
-	public void updatTest() {
-		User user = new User();
-		String username = "Oleg";
-		String username2 = "Pavlo";
-		user.setUsername(username);
-		
-		userRepository.save(user);
-		User userToUpdate = userRepository.find(user.getId());
-		userToUpdate.setUsername(username2);
-		userRepository.update(userToUpdate);
-		User updatedUser = userRepository.find(user.getId())	;
-		
-		assertEquals(updatedUser.getUsername(), username2);
-		assertNotEquals(updatedUser.getUsername(), username);
-	}
-
-	@Test
-	public void findAllTest() {
-		User user = new User();
-		User user2 = new User();
-		User user3 = new User();
-		userRepository.save(user);
-		userRepository.save(user2);
-		userRepository.save(user3);
-
-		List<User> users = userRepository.findAll();
-
-		assertNotNull(users);
-		assertEquals(3, users.size());
-	}
-
-	@Test
 	public void findByUsernameTest() {
 		User user = new User();
 		User user2 = new User();

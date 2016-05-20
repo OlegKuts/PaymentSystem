@@ -14,12 +14,10 @@
 	<tbody>
 		<c:forEach items="${users}" var="user">
 			<tr>
-				<td><a
-					href="<spring:url value="/admin/users/${user.id}.html" />"> <c:out
-							value="${user.username}" />
-				</a></td>
+				<td><c:out value="${user.username}" /></td>
 				<td><c:out value="${user.account.id}" /></td>
-				<td><c:out value="${user.userInformation.firstName} ${user.userInformation.lastName}" /></td>
+				<td><c:out
+						value="${user.userInformation.firstName} ${user.userInformation.lastName}" /></td>
 				<td><c:out value="${user.userInformation.email}" /></td>
 				<td><c:if test="${user.account.active eq true }">
 						<a

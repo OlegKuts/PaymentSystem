@@ -1,7 +1,5 @@
 package ua.epam.repository.jpa;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -36,23 +34,10 @@ public class JpaAccountRepository implements AccountRepository {
 	}
 
 	@Override
-	public List<Account> findAll() {
-		TypedQuery<Account> query = em.createNamedQuery("Account.findAll",
-				Account.class);
-		return query.getResultList();
-	}
-
-	@Override
-	public List<Account> findAllIfActive(boolean active) {
-		TypedQuery<Account> query = em.createNamedQuery(
-				"Account.findAllActive", Account.class).setParameter("active",
-				active);
-		return query.getResultList();
-	}
-
-	@Override
 	public Account findByUsername(String username) {
-		TypedQuery<Account> query = em.createNamedQuery("Account.findByUsername", Account.class).setParameter("username", username);
+		TypedQuery<Account> query = em.createNamedQuery(
+				"Account.findByUsername", Account.class).setParameter(
+				"username", username);
 		return query.getSingleResult();
 	}
 

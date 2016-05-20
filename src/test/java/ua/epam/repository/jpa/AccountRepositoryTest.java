@@ -50,48 +50,6 @@ public class AccountRepositoryTest extends RepositoryTestTemplate {
 	}
 
 	@Test
-	public void findAllTest() {
-		Account account = new Account();
-		Account account2 = new Account();
-		Account account3 = new Account();
-		accountRepository.save(account);
-		accountRepository.save(account2);
-		accountRepository.save(account3);
-
-		List<Account> accounts = accountRepository.findAll();
-
-		assertNotNull(accounts);
-		assertEquals(3, accounts.size());
-		assertTrue(accounts.contains(account));
-	}
-
-	@Test
-	public void findAllActiveTest() {
-		Account account = new Account();
-		Account account2 = new Account();
-		Account account3 = new Account();
-		account.setActive(true);
-		account2.setActive(true);
-		account3.setActive(false);
-
-		accountRepository.save(account);
-		accountRepository.save(account2);
-		accountRepository.save(account3);
-
-		List<Account> activeAccounts = accountRepository.findAllIfActive(true);
-		List<Account> dissactiveAccounts = accountRepository
-				.findAllIfActive(false);
-
-		assertNotNull(activeAccounts);
-		assertNotNull(dissactiveAccounts);
-		assertEquals(2, activeAccounts.size());
-		assertEquals(1, dissactiveAccounts.size());
-		assertTrue(activeAccounts.get(1).getActive());
-		assertFalse(dissactiveAccounts.get(0).getActive());
-
-	}
-
-	@Test
 	public void findByUsernameTest() {
 		User user = new User();
 		String username = "user";

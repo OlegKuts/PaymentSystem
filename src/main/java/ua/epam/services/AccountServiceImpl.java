@@ -22,6 +22,7 @@ import ua.epam.services.interfaces.AccountService;
 @Service
 public class AccountServiceImpl implements AccountService {
 	@Autowired
+	@Qualifier("jdbcAccountRepository")
 	AccountRepository accountRepository;
 	@Autowired
 	CreditCardRepository creditCardRepository;
@@ -49,11 +50,6 @@ public class AccountServiceImpl implements AccountService {
 		Account account = getAccountById(accountId);
 		account.setActive(Boolean.FALSE);
 		accountRepository.update(account);
-	}
-
-	@Override
-	public List<Account> getAll() {
-		return accountRepository.findAll();
 	}
 
 	@Override

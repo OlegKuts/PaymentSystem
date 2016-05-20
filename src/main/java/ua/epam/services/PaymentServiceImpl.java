@@ -3,6 +3,7 @@ package ua.epam.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import ua.epam.domain.Account;
@@ -18,6 +19,7 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 	@Autowired
+	@Qualifier("jdbcAccountRepository")
 	private AccountRepository accountRepository;
 
 	@Override

@@ -3,6 +3,7 @@ package ua.epam.main;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import ua.epam.repository.interfaces.AccountRepository;
 import ua.epam.repository.interfaces.UserRepository;
 import ua.epam.repository.jdbc.JdbcUserRepository;
 
@@ -17,8 +18,8 @@ public class Main {
 		ConfigurableApplicationContext appContext = new ClassPathXmlApplicationContext(
 				new String[] { "appContext.xml" }, repositoryContext);
 		
-		UserRepository repository = (UserRepository) repositoryContext.getBean("jdbcUserRepository");
-		System.out.println(repository.findByUsername("user").getAccount().getBalance());
+		AccountRepository repository = (AccountRepository) repositoryContext.getBean("jdbcAccountRepository");
+		System.out.println(repository.find(1L).getId());
 
 	}
 }

@@ -25,6 +25,7 @@ public class CreditCardServiceImpl implements CreditCardService {
 	@Qualifier("jdbcUserRepository")
 	UserRepository userRepository;
 	@Autowired
+	@Qualifier("jdbcAccountRepository")
 	AccountRepository accountRepository;
 
 	@Override

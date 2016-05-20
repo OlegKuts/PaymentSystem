@@ -27,10 +27,7 @@ import ua.epam.services.interfaces.UserService;
 public class AccountController {
 	@Autowired
 	AccountService accountService;
-	@Autowired
-	UserService userService;
-	@Autowired
-	PaymentService paymentService;
+
 	@Autowired
 	CreditCardService creditCardService;
 
