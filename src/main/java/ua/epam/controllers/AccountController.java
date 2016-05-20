@@ -19,8 +19,6 @@ import ua.epam.form.RefundBalanceForm;
 import ua.epam.services.exceptions.NotEnoughFundsException;
 import ua.epam.services.interfaces.AccountService;
 import ua.epam.services.interfaces.CreditCardService;
-import ua.epam.services.interfaces.PaymentService;
-import ua.epam.services.interfaces.UserService;
 
 @Controller
 @RequestMapping("/account")

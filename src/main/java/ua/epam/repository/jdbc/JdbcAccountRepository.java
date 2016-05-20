@@ -40,7 +40,6 @@ public class JdbcAccountRepository implements AccountRepository {
 			statement.setLong(3, account.getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -64,7 +63,6 @@ public class JdbcAccountRepository implements AccountRepository {
 					account.setId(id);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				if (rs != null) {
@@ -81,7 +79,6 @@ public class JdbcAccountRepository implements AccountRepository {
 					cards.add(card);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				if (rs != null) {
@@ -89,7 +86,6 @@ public class JdbcAccountRepository implements AccountRepository {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return account;
@@ -97,8 +93,34 @@ public class JdbcAccountRepository implements AccountRepository {
 
 	@Override
 	public Account findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String query = "SELECT username, account.id as account_id, is_active, balance "
+				+ "FROM user_authentication "
+				+ "JOIN account ON user_authentication.id = user_id "
+				+ "WHERE username = ?;";
+		ResultSet rs = null;
+		Account account = null;
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement statement = conn.prepareStatement(query)) {
+			statement.setString(1, username);
+			rs = statement.executeQuery();
+			while (rs.next()) {
+				account = new Account(rs.getDouble("balance"),
+						rs.getBoolean("is_active"));
+				account.setId(rs.getLong("account_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return account;
+	}
 }

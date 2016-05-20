@@ -19,7 +19,7 @@ public class Main {
 				new String[] { "appContext.xml" }, repositoryContext);
 		
 		AccountRepository repository = (AccountRepository) repositoryContext.getBean("jdbcAccountRepository");
-		System.out.println(repository.find(1L).getId());
+		System.out.println(repository.findByUsername("user3").getId());
 
 	}
 }
